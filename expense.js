@@ -10,8 +10,8 @@
 
 
 const supabaseClient = window.supabase.createClient(
-    "",
-    ""
+    "https://fqsigukfusoplfzvevlz.supabase.co",
+    "sb_publishable_S_o8arC97cbzU9F_pUIDOw_7FW-Y_Rz"
 );
 
 let currentUser = null;
