@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Group Expense Tracker</title>
+
+    <link rel="stylesheet" href="expense.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="app-header">
+
+    <!-- BRAND -->
+    <div class="app-brand">
+
+        <div class="app-brand-icon">
+
+            <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+            >
+                <path
+                    d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
+                />
+
+                <circle
+                    cx="9"
+                    cy="7"
+                    r="4"
+                />
+
+                <path
+                    d="M22 21v-2a4 4 0 0 0-3-3.87"
+                />
+
+                <path
+                    d="M16 3.13a4 4 0 0 1 0 7.75"
+                />
+            </svg>
+
+        </div>
+
+
+        <div class="app-brand-text">
+
+            <h1>
+                Group Expense Tracker
+            </h1>
+
+            <p>
+                Track shared expenses, debts, and credit-card bills.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- HEADER ACTIONS -->
+    <div class="header-actions">
+
+
+        <!-- SETTINGS -->
+
+        <button
+            class="header-btn"
+            onclick="openSettings()"
+            title="Settings"
+        >
+
+            <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+            >
+                <circle
+                    cx="12"
+                    cy="12"
+                    r="3"
+                />
+
+                <path
+                    d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-1.5 1.5-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.55V20h-2.12v-.41a1.7 1.7 0 0 0-1.03-1.55 1.7 1.7 0 0 0-1.88.34l-.06.06-1.5-1.5.06-.06A1.7 1.7 0 0 0 9.2 15a1.7 1.7 0 0 0-1.55-1.03H7v-2.12h.41A1.7 1.7 0 0 0 8.96 10a1.7 1.7 0 0 0-.34-1.88l-.06-.06 1.5-1.5.06.06A1.7 1.7 0 0 0 12 6.3a1.7 1.7 0 0 0 1.03-1.55V4h2.12v.41A1.7 1.7 0 0 0 16.18 6a1.7 1.7 0 0 0 1.88-.34l.06-.06 1.5 1.5-.06.06A1.7 1.7 0 0 0 19.22 9c.17.62.73 1.03 1.38 1.03H21v2.12h-.41A1.7 1.7 0 0 0 19.4 15z"
+                />
+            </svg>
+
+            <span>
+                Settings
+            </span>
+
+        </button>
+
+
+        <!-- EXPORT -->
+
+        <button
+            class="header-btn"
+            onclick="exportData()"
+            title="Export"
+        >
+
+            <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+            >
+                <path
+                    d="M12 3v12"
+                />
+
+                <path
+                    d="m7 8 5-5 5 5"
+                />
+
+                <path
+                    d="M5 21h14"
+                />
+
+                <path
+                    d="M5 17v4"
+                />
+
+                <path
+                    d="M19 17v4"
+                />
+            </svg>
+
+            <span>
+                Export
+            </span>
+
+        </button>
+
+
+        <!-- IMPORT -->
+
+        <label
+            class="header-btn"
+            title="Import"
+        >
+
+            <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+            >
+                <path
+                    d="M12 21V9"
+                />
+
+                <path
+                    d="m17 16-5 5-5-5"
+                />
+
+                <path
+                    d="M5 3h14"
+                />
+
+                <path
+                    d="M5 7v-4"
+                />
+
+                <path
+                    d="M19 7v-4"
+                />
+            </svg>
+
+            <span>
+                Import
+            </span>
+
+
+            <input
+                type="file"
+                accept=".json,application/json"
+                onchange="importData(event)"
+                hidden
+            >
+
+        </label>
+
+
+        <!-- LOGOUT -->
+
+        <button
+            class="header-btn logout-btn"
+            onclick="logoutUser()"
+            title="Logout"
+        >
+
+            <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+            >
+                <path
+                    d="M10 17l5-5-5-5"
+                />
+
+                <path
+                    d="M15 12H3"
+                />
+
+                <path
+                    d="M21 19V5a2 2 0 0 0-2-2h-7"
+                />
+            </svg>
+
+            <span>
+                Logout
+            </span>
+
+        </button>
+
+    </div>
+
+</header>
+    <!-- =====================================================
+         OVERVIEW
+    ====================================================== -->
+
+  <!-- =====================================================
+     OVERVIEW
+====================================================== -->
+
+<section class="overview-grid">
+
+
+    <!-- TOTAL GROUP SPENDING -->
+    <div class="stat-card">
+
+        <div class="stat-icon purple">
+            💰
+        </div>
+
+        <div class="stat-content">
+
+            <span class="stat-title">
+                Total Group Spending
+            </span>
+
+            <strong id="totalGroupSpending">
+                ₱0.00
+            </strong>
+
+            <div class="stat-description">
+                All recorded expenses
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- EXPENSES -->
+    <div class="stat-card">
+
+        <div class="stat-icon blue">
+            🧾
+        </div>
+
+        <div class="stat-content">
+
+            <span class="stat-title">
+                Expenses
+            </span>
+
+            <strong id="expenseCount">
+                0
+            </strong>
+
+            <div class="stat-description">
+                Total expenses
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PENDING PAYMENTS -->
+    <div class="stat-card">
+
+        <div class="stat-icon green">
+            💵
+        </div>
+
+        <div class="stat-content">
+
+            <span class="stat-title">
+                Pending Card Payments
+            </span>
+
+            <strong id="pendingPayments">
+                ₱0.00
+            </strong>
+
+            <div class="stat-description">
+                To settle
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- OUTSTANDING DEBT -->
+    <div class="stat-card">
+
+        <div class="stat-icon orange">
+            💳
+        </div>
+
+        <div class="stat-content">
+
+            <span class="stat-title">
+                Outstanding Cash/E-Wallet Debt
+            </span>
+
+            <strong id="outstandingDebt">
+                ₱0.00
+            </strong>
+
+            <div class="stat-description">
+                To settle
+            </div>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+    <!-- =====================================================
+         ADD EXPENSE
+    ====================================================== -->
+
+    <section class="panel">
+
+        <div class="section-header">
+
+            <div>
+                <h2 class="section-title">
+    <span class="section-icon credit-card-icon">💳</span>
+    <span>Credit Card Statements</span>
+</h2>
+
+
+                <p>Record a shared expense.</p>
+            </div>
+
+        </div>
+
+        <div class="form-grid">
+
+            <div class="field">
+                <label>Description</label>
+
+                <input
+                    id="description"
+                    type="text"
+                    placeholder="e.g. Dinner"
+                >
+            </div>
+
+
+            <div class="field">
+                <label>Amount</label>
+
+                <input
+                    id="amount"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    placeholder="0.00"
+                >
+            </div>
+
+
+            <div class="field">
+                <label>Date</label>
+
+                <input
+                    id="expenseDate"
+                    type="date"
+                >
+            </div>
+
+
+            <div class="field">
+                <label>Category</label>
+
+                <select id="category">
+
+                    <option>Food</option>
+                    <option>Transport</option>
+                    <option>Shopping</option>
+                    <option>Bills</option>
+                    <option>Entertainment</option>
+                    <option>Travel</option>
+                    <option>Health</option>
+                    <option>Other</option>
+
+                </select>
+            </div>
+
+
+            <div class="field">
+                <label>Paid By</label>
+
+                <select id="paidBy"></select>
+            </div>
+
+
+            <div class="field">
+                <label>Payment Method</label>
+
+                <select id="paymentMethod">
+
+                    <option value="cash">
+                        💵 Cash
+                    </option>
+
+                    <option value="gcash">
+                        📱 GCash
+                    </option>
+
+                    <option value="maya">
+                        📱 Maya
+                    </option>
+
+                    <option value="bank_transfer">
+                        🏦 Bank Transfer
+                    </option>
+
+                    <option value="other_ewallet">
+                        📱 Other E-Wallet
+                    </option>
+
+                    <option value="credit_card">
+                        💳 Credit Card
+                    </option>
+
+                </select>
+            </div>
+
+
+            <div
+                class="field"
+                id="creditCardField"
+                style="display:none;"
+            >
+
+                <label>Credit Card</label>
+
+                <select id="creditCard">
+
+                    <option value="">
+                        Select Credit Card
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- SPLIT -->
+
+        <div class="split-section">
+
+            <div class="split-header">
+
+                <div>
+                    <h3>Split Expense</h3>
+
+                    <span
+                        id="splitTotal"
+                        class="split-total"
+                    >
+                        Split Total: ₱0.00
+                    </span>
+                </div>
+
+                <div class="split-buttons">
+
+                    <button
+                        class="secondary small-btn"
+                        onclick="splitEqually()"
+                    >
+                        Split Equally
+                    </button>
+
+                    <button
+                        class="secondary small-btn"
+                        onclick="showCustomSplit()"
+                    >
+                        Custom Split
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div id="splitContainer"></div>
+
+        </div>
+
+
+        <div class="form-actions">
+
+            <button
+                id="saveExpenseButton"
+                class="primary"
+                onclick="saveExpense()"
+            >
+                + Add Expense
+            </button>
+
+            <button
+                id="cancelEditButton"
+                class="secondary hidden"
+                onclick="cancelEdit()"
+            >
+                Cancel Edit
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         MEMBER SUMMARY
+    ====================================================== -->
+
+    <section class="panel">
+
+        <div class="section-header">
+
+            <div>
+                <h2>👥 Member Balances</h2>
+                <p>Actual amount paid versus actual share.</p>
+            </div>
+
+        </div>
+
+        <div id="memberSummary" class="member-grid"></div>
+
+    </section>
+
+
+  <!-- =====================================================
+     CREDIT CARD BILLS
+====================================================== -->
+
+<section class="panel collapsible">
+
+    <div
+        class="section-header clickable"
+        onclick="toggleSection('billsSection')"
+    >
+
+        <div>
+            <h2>💳 Credit Card Statements</h2>
+
+            <p>
+                Track member balances and partial payments.
+            </p>
+        </div>
+
+        <span id="billsArrow">▼</span>
+
+    </div>
+
+
+    <div id="billsSection">
+
+        <!-- STATEMENT TABS -->
+        <div class="statement-tabs">
+
+            <button
+                type="button"
+                class="statement-tab active"
+                id="activeStatementsTab"
+                onclick="switchStatementTab('active')"
+            >
+                💳 Active Statements
+            </button>
+
+            <button
+                type="button"
+                class="statement-tab"
+                id="paidHistoryTab"
+                onclick="switchStatementTab('paid')"
+            >
+                📁 Paid History
+            </button>
+
+        </div>
+
+
+        <!-- STATEMENT CONTENT -->
+        <div id="creditCardBills"></div>
+
+    </div>
+
+</section>
+
+
+
+ <!-- =====================================================
+     DEBTS
+====================================================== -->
+
+<section class="panel collapsible">
+
+    <div
+        class="section-header clickable"
+        onclick="toggleSection('debtsSection')"
+    >
+
+        <div>
+
+            <h2>💸 Outstanding Debts</h2>
+
+            <p>
+                Cash and e-wallet debts only.
+            </p>
+
+        </div>
+
+        <span id="debtsArrow">▼</span>
+
+    </div>
+
+
+    <div id="debtsSection">
+
+        <!-- =================================================
+             DEBT TABS
+        ================================================== -->
+
+        <div class="debt-tabs">
+
+            <button
+                type="button"
+                class="debt-tab active"
+                id="activeDebtsTab"
+                onclick="switchDebtTab('active')"
+            >
+                💸 Active Debts
+            </button>
+
+
+            <button
+                type="button"
+                class="debt-tab"
+                id="paidDebtsTab"
+                onclick="switchDebtTab('paid')"
+            >
+                ✓ Paid History
+            </button>
+
+        </div>
+
+
+        <!-- =================================================
+             DEBT CONTENT
+        ================================================== -->
+
+        <div id="debtsContainer"></div>
+
+        <div
+            id="paidDebtsContainer"
+            style="display:none;"
+        ></div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     EXPENSE HISTORY
+====================================================== -->
+
+<section class="panel collapsible">
+
+    <div
+        class="section-header clickable"
+        onclick="toggleSection('expensesSection')"
+    >
+
+        <div>
+
+            <h2>🧾 Expense History</h2>
+
+            <p>
+                Search and filter your expenses.
+            </p>
+
+        </div>
+
+        <span id="expensesArrow">▼</span>
+
+    </div>
+
+
+    <div id="expensesSection">
+
+        <!-- =================================================
+             FILTERS
+        ================================================== -->
+
+        <div class="expense-history-filters">
+
+            <div class="expense-search-field">
+
+                <label>Search</label>
+
+                <div class="expense-search-wrap">
+
+                    <span>🔎</span>
+
+                    <input
+                        id="expenseSearch"
+                        type="search"
+                        placeholder="Search description..."
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>Category</label>
+
+                <select id="expenseFilterCategory">
+
+                    <option value="">
+                        All Categories
+                    </option>
+
+                    <option>Food</option>
+                    <option>Transport</option>
+                    <option>Shopping</option>
+                    <option>Bills</option>
+                    <option>Entertainment</option>
+                    <option>Travel</option>
+                    <option>Health</option>
+                    <option>Other</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>Paid By</label>
+
+                <select id="expenseFilterMember">
+
+                    <option value="">
+                        Everyone
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>Payment</label>
+
+                <select id="expenseFilterPayment">
+
+                    <option value="">
+                        All Methods
+                    </option>
+
+                    <option value="cash">
+                        Cash
+                    </option>
+
+                    <option value="gcash">
+                        GCash
+                    </option>
+
+                    <option value="maya">
+                        Maya
+                    </option>
+
+                    <option value="bank_transfer">
+                        Bank Transfer
+                    </option>
+
+                    <option value="other_ewallet">
+                        Other E-Wallet
+                    </option>
+
+                    <option value="credit_card">
+                        Credit Card
+                    </option>
+
+                </select>
+
+            </div>
+<div class="field date-range-field">
+
+    <label>Date</label>
+
+    <div class="date-range-input">
+
+        <input
+            id="expenseFilterDateFrom"
+            type="date"
+            title="From date"
+        >
+
+        <span>–</span>
+
+        <input
+            id="expenseFilterDateTo"
+            type="date"
+            title="To date"
+        >
+
+    </div>
+
+</div>
+
+
+
+        <!-- =================================================
+             FILTER FOOTER
+        ================================================== -->
+
+        <div class="expense-history-toolbar">
+
+            <div>
+
+                <span class="expense-history-title">
+                    Recent Expenses
+                </span>
+
+                <span
+                    id="expenseHistoryCount"
+                    class="expense-meta"
+                ></span>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="secondary small-btn"
+                onclick="clearExpenseFilters()"
+            >
+                Clear Filters
+            </button>
+
+        </div>
+
+
+        <!-- =================================================
+             EXPENSE LIST
+        ================================================== -->
+
+        <div id="expenseList"></div>
+
+    </div>
+
+</section>
+
+
+
+
+<!-- =========================================================
+     SETTINGS MODAL
+========================================================== -->
+
+<div
+    id="settingsModal"
+    class="modal"
+>
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <div>
+                <h2>⚙️ Settings</h2>
+                <p>Manage members and credit cards.</p>
+            </div>
+
+            <button
+                class="icon-btn"
+                onclick="closeSettings()"
+            >
+                ✕
+            </button>
+
+        </div>
+
+
+        <!-- MEMBERS -->
+
+        <div class="settings-section">
+
+            <div class="settings-title">
+
+                <h3>👥 Members</h3>
+
+                <button
+                    class="primary small-btn"
+                    onclick="addMemberRow()"
+                >
+                    + Add Member
+                </button>
+
+            </div>
+
+            <div id="settingsMembers"></div>
+
+            <button
+                class="success"
+                onclick="saveMembers()"
+            >
+                Save Members
+            </button>
+
+        </div>
+
+
+        <!-- CREDIT CARDS -->
+
+        <div class="settings-section">
+
+            <h3>💳 Add Credit Card</h3>
+
+            <div class="form-grid">
+
+                <div class="field">
+
+                    <label>Card Name</label>
+
+                    <input
+                        id="newCardName"
+                        type="text"
+                        placeholder="BDO"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>Owner</label>
+
+                    <select id="newCardOwner"></select>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>Statement Day</label>
+
+                    <input
+                        id="newCardStatementDay"
+                        type="number"
+                        min="1"
+                        max="31"
+                        placeholder="5"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>Due Day</label>
+
+                    <input
+                        id="newCardDueDay"
+                        type="number"
+                        min="1"
+                        max="31"
+                        placeholder="25"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="primary"
+                onclick="addCreditCard()"
+            >
+                + Add Credit Card
+            </button>
+
+
+            <div
+                id="settingsCreditCards"
+                class="settings-cards"
+            ></div>
+
+        </div>
+
+
+        <!-- DATA -->
+
+        <div class="settings-section">
+
+            <h3>🗃 Data</h3>
+
+            <button
+                class="danger"
+                onclick="resetAllData()"
+            >
+                Reset All Data
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="expense.js"></script>
+
+</body>
+</html>

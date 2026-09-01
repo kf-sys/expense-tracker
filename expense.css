@@ -1,0 +1,2838 @@
+* {
+    box-sizing: border-box;
+}
+:root {
+    /* =====================================================
+       MAIN COLORS
+    ===================================================== */
+
+    --bg: #07111f;
+
+    --panel: #0f1c2e;
+
+    --panel-2: #17263a;
+
+    --border: #2d415b;
+
+
+    /* =====================================================
+       TEXT
+    ===================================================== */
+
+    --text: #f8fafc;
+
+    --muted: #a8b6c8;
+
+
+    /* =====================================================
+       ACCENTS
+    ===================================================== */
+
+    --accent-start: #d72cff;
+    --accent-end: #ff27a9;
+    --primary: #c522ed;
+
+    --primary-hover: #ed2099;
+    --green: #22c55e;
+
+    --red: #ef4444;
+
+    --yellow: #f59e0b;
+
+
+    /* =====================================================
+       INPUTS
+    ===================================================== */
+
+    --input-bg: #0b1728;
+
+    --input-border: #3a506b;
+
+
+    /* =====================================================
+       GENERAL
+    ===================================================== */
+
+    --radius: 14px;
+}
+
+body {
+    margin: 0;
+
+    font-family:
+        Inter,
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size: 14px;
+    line-height: 1.5;
+
+    background:
+        linear-gradient(
+            to right,
+            #000428,
+            #041162
+        );
+
+    color: var(--text);
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+button,
+.button {
+    border: 0;
+
+    border-radius: 9px;
+
+    padding: 10px 15px;
+
+    cursor: pointer;
+
+    transition:
+        .15s ease;
+}
+
+button:hover,
+.button:hover {
+    transform: translateY(-1px);
+}
+
+.primary {
+    background:
+        linear-gradient(
+            90deg,
+            var(--accent-start),
+            var(--accent-end)
+        );
+
+    color: white;
+}
+
+.primary:hover {
+    background:
+        linear-gradient(
+            90deg,
+            #c522ed,
+            #ed2099
+        );
+
+    box-shadow:
+        0 6px 18px
+        rgba(215, 44, 255, 0.25);
+}
+.secondary {
+    background: #334155;
+    color: white;
+}
+
+.success {
+    background: var(--green);
+    color: #052e16;
+}
+
+.danger {
+    background: var(--red);
+    color: white;
+}
+
+.warning {
+    background: var(--yellow);
+    color: #422006;
+}
+
+.small-btn {
+    padding: 7px 11px;
+    font-size: 13px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.app {
+    max-width: 1400px;
+
+    margin: auto;
+
+    padding: 30px 20px 70px;
+}
+/* =====================================================
+   HEADER
+===================================================== */
+
+.app-header {
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+    margin-bottom: 10px;
+
+    padding:
+        14px 16px;
+
+}
+
+
+/* =====================================================
+   BRAND
+===================================================== */
+
+.app-brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    min-width: 0;
+
+}
+
+
+.app-brand-icon {
+
+    width: 58px;
+
+    height: 58px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #a855f7
+        );
+
+    box-shadow:
+        0 5px 14px
+        rgba(124, 58, 237, 0.25);
+
+}
+
+
+.app-brand-icon svg {
+
+    width: 40px;
+
+    height: 40px;
+
+    fill: none;
+
+    stroke: white;
+
+    stroke-width: 1.8;
+
+    stroke-linecap: round;
+
+    stroke-linejoin: round;
+
+}
+
+
+.app-brand-text {
+
+    min-width: 0;
+
+}
+
+
+.app-brand-text h1 {
+
+    margin: 0;
+
+    font-size: 24px;
+
+    line-height: 1.2;
+
+    font-weight: 700;
+
+    color: #f8fafc;
+
+}
+
+
+.app-brand-text p {
+
+    margin:
+        3px 0 0;
+
+    font-size: 16px;
+
+    line-height: 1.3;
+
+    color: #7f94b2;
+
+}
+
+
+/* =====================================================
+   HEADER ACTIONS
+===================================================== */
+
+.header-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    flex-wrap: wrap;
+
+}
+
+
+/* =====================================================
+   HEADER BUTTON
+===================================================== */
+
+.header-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 5px;
+
+    height: 40px;
+
+    padding:
+        0 9px;
+
+    border:
+        1px solid
+        rgba(78, 102, 140, 0.45);
+
+    border-radius: 6px;
+
+    background:
+        rgba(25, 43, 72, 0.85);
+
+    color: #aebdd1;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.15s ease,
+        border-color 0.15s ease,
+        color 0.15s ease,
+        transform 0.15s ease;
+
+}
+
+
+.header-btn svg {
+
+    width: 12px;
+
+    height: 12px;
+
+    fill: none;
+
+    stroke: currentColor;
+
+    stroke-width: 1.8;
+
+    stroke-linecap: round;
+
+    stroke-linejoin: round;
+
+}
+
+
+.header-btn:hover {
+
+    transform:
+        translateY(-1px);
+
+    background:
+        #243858;
+
+    border-color:
+        #486386;
+
+    color:
+        #f8fafc;
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+.logout-btn {
+
+    color:
+        #f87171;
+
+    border-color:
+        rgba(239, 68, 68, 0.25);
+
+    background:
+        rgba(127, 29, 29, 0.18);
+
+}
+
+
+.logout-btn:hover {
+
+    color:
+        #fca5a5;
+
+    background:
+        rgba(127, 29, 29, 0.32);
+
+    border-color:
+        rgba(239, 68, 68, 0.45);
+
+}
+
+/* =====================================================
+   HEADER BUTTONS
+===================================================== */
+
+.header-actions .secondary {
+
+    background:
+        #1e293b;
+
+    color:
+        #f8fafc;
+
+    border:
+        1px solid
+        #334155;
+
+}
+
+
+.header-actions .secondary:hover {
+
+    background:
+        #263653;
+
+}
+
+
+/* =====================================================
+   PINK ACCENT
+===================================================== */
+
+.app-header h1::first-letter {
+
+    color:
+        var(--pink);
+
+}
+
+
+/* =====================================================
+   OVERVIEW
+===================================================== */
+
+.overview-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    background: var(--panel);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    padding: 20px;
+}
+
+.stat-card span {
+    color: var(--muted);
+
+    font-size: 14px;
+}
+
+.stat-card strong {
+    display: block;
+
+    font-size: 24px;
+
+    margin-top: 8px;
+}
+
+/* =====================================================
+   OVERVIEW STAT CARDS
+===================================================== */
+
+.overview-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 12px;
+
+    margin-bottom: 18px;
+}
+
+
+.stat-card {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    min-height: 92px;
+
+    padding: 16px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #111827,
+            #172554
+        );
+
+    border:
+        1px solid
+        rgba(96, 165, 250, 0.18);
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 6px 18px
+        rgba(0, 0, 0, 0.15);
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+.stat-card:hover {
+
+    transform:
+        translateY(-2px);
+
+    border-color:
+        rgba(139, 92, 246, 0.45);
+
+}
+
+
+/* =====================================================
+   STAT ICON
+===================================================== */
+
+.stat-icon {
+
+    width: 42px;
+
+    height: 42px;
+
+    min-width: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 10px;
+
+    font-size: 19px;
+
+}
+
+
+/* PURPLE */
+
+.stat-icon.purple {
+
+    background:
+        rgba(139, 92, 246, 0.18);
+
+    color: #c4b5fd;
+
+}
+
+
+/* BLUE */
+
+.stat-icon.blue {
+
+    background:
+        rgba(59, 130, 246, 0.18);
+
+    color: #93c5fd;
+
+}
+
+
+/* GREEN */
+
+.stat-icon.green {
+
+    background:
+        rgba(34, 197, 94, 0.18);
+
+    color: #86efac;
+
+}
+
+
+/* ORANGE */
+
+.stat-icon.orange {
+
+    background:
+        rgba(245, 158, 11, 0.18);
+
+    color: #fcd34d;
+
+}
+
+
+/* =====================================================
+   STAT CONTENT
+===================================================== */
+
+.stat-content {
+
+    min-width: 0;
+
+    flex: 1;
+
+}
+
+
+.stat-title {
+
+    display: block;
+
+    color:
+        #94a3b8;
+
+    font-size: 11px;
+
+    font-weight: 500;
+
+    margin-bottom: 5px;
+
+}
+
+
+.stat-content strong {
+
+    display: block;
+
+    color:
+        #f8fafc;
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    line-height: 1.2;
+
+}
+
+
+.stat-description {
+
+    margin-top: 4px;
+
+    color:
+        #64748b;
+
+    font-size: 10px;
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .overview-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .overview-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+}
+
+/* =====================================================
+   ADD EXPENSE
+===================================================== */
+
+.panel {
+    background: rgba(30,49,51,0.48);
+
+    border: 1px solid rgba(96,265,250,0.14);
+
+    border-radius: 16px;
+
+    padding: 24px;
+
+    margin-bottom: 22px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0, 0, 0, 0.18);
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    }
+    
+
+/* =====================================================
+   SECTION HEADER
+===================================================== */
+
+.section-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 24px;
+}
+
+.section-header h2 {
+    margin: 0 0 6px;
+
+    font-size: 21px;
+
+    color: #ffffff;
+}
+
+/* =====================================================
+   ADD EXPENSE ICON
+===================================================== */
+
+.add-expense-title {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+}
+
+
+/* Purple circular + icon */
+
+.add-expense-icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 24px;
+
+    height: 24px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #8b5cf6,
+            #d72cff
+        );
+
+    color: #ffffff;
+
+    font-size: 17px;
+
+    font-weight: 500;
+
+    line-height: 1;
+
+    box-shadow:
+        0 3px 10px
+        rgba(139, 92, 246, 0.25);
+}
+
+.section-header p {
+    margin: 0;
+
+    color: #94a3b8;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   FORM GRID
+===================================================== */
+
+.form-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 18px 20px;
+
+}
+
+
+/* =====================================================
+   FIELD
+===================================================== */
+
+.field {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+}
+
+
+.field label {
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #cbd5e1;
+
+}
+
+
+/* =====================================================
+   INPUTS / SELECTS
+===================================================== */
+
+.field input,
+.field select {
+
+    width: 100%;
+
+    height: 46px;
+
+    padding:
+        0 13px;
+
+    border-radius: 9px;
+
+    border:
+        1px solid #334155;
+
+    background: #0b1220;
+
+    color: #f8fafc;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color .2s,
+        box-shadow .2s,
+        background .2s;
+
+}
+
+
+.field input::placeholder {
+
+    color: #64748b;
+
+}
+
+
+.field input:focus,
+.field select:focus {
+
+    border-color: #d72cff;
+
+    background: #0f172a;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(215, 44, 255, 0.10);
+
+}
+
+
+/* =====================================================
+   CREDIT CARD FIELD
+===================================================== */
+
+#creditCardField {
+
+    transition:
+        opacity .2s ease;
+
+}
+
+
+/* =====================================================
+   SPLIT SECTION
+===================================================== */
+
+.split-section {
+
+    margin-top: 28px;
+
+    padding-top: 24px;
+
+    border-top:
+        1px solid #263449;
+
+}
+
+
+.split-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 16px;
+
+}
+
+
+.split-header h3 {
+
+    margin: 0 0 5px;
+
+    font-size: 16px;
+
+    color: #f8fafc;
+
+}
+
+
+.split-total {
+
+    color: #94a3b8;
+
+    font-size: 13px;
+
+}
+
+
+/* =====================================================
+   SPLIT BUTTONS
+===================================================== */
+
+.split-buttons {
+
+    display: flex;
+
+    gap: 8px;
+
+}
+
+
+.split-buttons .secondary {
+
+    background: #1e293b;
+
+    border:
+        1px solid #334155;
+
+    color: #cbd5e1;
+
+}
+
+
+.split-buttons .secondary:hover {
+
+    background: #334155;
+
+    border-color: #475569;
+
+}
+
+
+/* =====================================================
+   SPLIT ROW
+===================================================== */
+
+.split-row {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 180px;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 10px 0;
+
+}
+
+
+.split-row label {
+
+    color: #e2e8f0;
+
+    font-weight: 600;
+
+}
+
+
+.split-input {
+
+    width: 100%;
+
+    height: 42px;
+
+    padding:
+        0 11px;
+
+    border-radius: 8px;
+
+    background: #0b1220;
+
+    color: #ffffff;
+
+    border:
+        1px solid #334155;
+
+    outline: none;
+
+}
+
+
+.split-input:focus {
+
+    border-color: #d72cff;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(215, 44, 255, 0.10);
+
+}
+
+
+/* =====================================================
+   FORM ACTIONS
+===================================================== */
+
+.form-actions {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 25px;
+
+    padding-top: 20px;
+
+    border-top:
+        1px solid #263449;
+
+}
+
+
+/* =====================================================
+   ADD / UPDATE BUTTON
+===================================================== */
+
+#saveExpenseButton {
+
+    min-width: 150px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #d72cff,
+            #ff27a9
+        );
+
+    color: #ffffff;
+
+    font-weight: 700;
+
+    border: none;
+
+    box-shadow:
+        0 6px 18px
+        rgba(215, 44, 255, 0.20);
+
+}
+
+
+#saveExpenseButton:hover {
+
+    transform:
+        translateY(-1px);
+
+    box-shadow:
+        0 8px 22px
+        rgba(215, 44, 255, 0.32);
+
+}
+
+
+/* =====================================================
+   CANCEL BUTTON
+===================================================== */
+
+#cancelEditButton {
+
+    background: #1e293b;
+
+    color: #cbd5e1;
+
+    border:
+        1px solid #334155;
+
+}
+
+
+#cancelEditButton:hover {
+
+    background: #334155;
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 650px) {
+
+    .panel {
+
+        padding: 18px;
+
+    }
+
+
+    .form-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .split-header {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+    }
+
+
+    .split-buttons {
+
+        width: 100%;
+
+    }
+
+
+    .split-buttons button {
+
+        flex: 1;
+
+    }
+
+
+    .split-row {
+
+        grid-template-columns: 1fr;
+
+        gap: 7px;
+
+    }
+
+
+    .form-actions {
+
+        flex-direction: column;
+
+    }
+
+
+    #saveExpenseButton,
+    #cancelEditButton {
+
+        width: 100%;
+
+    }
+
+}
+/* =====================================================
+   MEMBER SUMMARY
+===================================================== */
+
+.member-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 10px;
+}
+
+
+/* =====================================================
+   MEMBER CARD
+===================================================== */
+
+.member-card {
+    background: var(--panel-2);
+
+    border: 1px solid var(--border);
+
+    border-radius: 8px;
+
+    padding: 10px 12px;
+}
+
+
+/* =====================================================
+   MEMBER NAME
+===================================================== */
+
+/* =====================================================
+   MEMBER NAME
+===================================================== */
+
+.member-name {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    margin-bottom: 10px;
+
+    color: #f8fafc;
+}
+
+
+/* =====================================================
+   MEMBER AVATAR
+===================================================== */
+
+.member-avatar {
+
+    width: 30px;
+
+    height: 30px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #8b5cf6,
+            #d72cff
+        );
+
+    color: #ffffff;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: .3px;
+
+    box-shadow:
+        0 3px 10px
+        rgba(139, 92, 246, 0.22);
+}
+
+
+/* =====================================================
+   MEMBER NAME TEXT
+===================================================== */
+
+.member-name-text {
+    color: #f8fafc;
+}
+
+
+/* =====================================================
+   MEMBER INFO ROW
+===================================================== */
+
+.member-line {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 4px 0;
+
+    border-bottom:
+        1px solid
+        rgba(148, 163, 184, .08);
+
+    font-size: 10px;
+}
+
+
+.member-line:last-child {
+    border-bottom: 0;
+}
+
+
+/* =====================================================
+   MEMBER TEXT
+===================================================== */
+
+.muted {
+    color: var(--muted);
+}
+
+
+.green {
+    color: var(--green);
+}
+
+
+.red,
+.owe {
+    color: #f87171;
+}
+
+
+@media (max-width: 650px) {
+
+    .member-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .member-card {
+        padding: 11px 12px;
+    }
+
+}
+
+/* =====================================================
+   EXPENSES
+===================================================== */
+
+.expense {
+    background: var(--panel-2);
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    padding: 18px;
+
+    margin-bottom: 12px;
+}
+
+.expense-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+.expense-name {
+    font-size: 17px;
+
+    font-weight: 700;
+
+    margin-bottom: 6px;
+}
+
+.expense-amount {
+    font-size: 22px;
+
+    font-weight: 800;
+
+    white-space: nowrap;
+}
+
+.expense-meta {
+    color: var(--muted);
+
+    font-size: 13px;
+
+    margin-top: 5px;
+}
+
+.expense-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 8px;
+
+    margin-top: 15px;
+}
+
+
+/* =====================================================
+   FILTERS
+===================================================== */
+
+.filter-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 12px;
+
+    margin-bottom: 12px;
+}
+
+.filter-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    margin-bottom: 18px;
+}
+
+
+/* =====================================================
+   SECTION TITLE
+===================================================== */
+
+.section-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+}
+
+
+/* =====================================================
+   SECTION ICON
+===================================================== */
+
+.section-icon {
+
+    width: 26px;
+
+    height: 26px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    font-size: 13px;
+
+    line-height: 1;
+
+    background:
+        linear-gradient(
+            135deg,
+            #8b5cf6,
+            #d72cff
+        );
+
+    box-shadow:
+        0 3px 10px
+        rgba(139, 92, 246, 0.22);
+}
+
+
+/* Credit card icon */
+
+.credit-card-icon {
+    font-size: 12px;
+}
+
+
+
+/* =====================================================
+   CREDIT CARD BILLS
+===================================================== */
+
+.bill-card {
+    background: var(--panel-2);
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    padding: 14px;
+
+    margin-bottom: 10px;
+}
+
+
+/* =====================================================
+   BILL HEADER
+===================================================== */
+
+.bill-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    gap: 15px;
+
+    margin-bottom: 12px;
+}
+
+
+.bill-title {
+    font-size: 14px;
+
+    font-weight: 700;
+
+    color: #f8fafc;
+}
+
+
+.bill-info {
+    color: var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.6;
+
+    margin-top: 4px;
+}
+
+
+.bill-total {
+    font-size: 18px;
+
+    font-weight: 800;
+
+    white-space: nowrap;
+
+    color: #f8fafc;
+}
+
+
+/* =====================================================
+   BILL MEMBER
+===================================================== */
+
+.bill-member {
+    background: #0f172a;
+
+    border: 1px solid var(--border);
+
+    border-radius: 8px;
+
+    padding: 10px;
+
+    margin-top: 8px;
+}
+
+
+.bill-member-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.bill-member-name {
+    font-size: 12px;
+
+    font-weight: 700;
+
+    color: #e2e8f0;
+}
+
+
+.bill-member-amount {
+    font-size: 15px;
+
+    font-weight: 800;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   BILL ACTIONS
+===================================================== */
+
+.bill-actions {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 6px;
+
+    margin-top: 9px;
+}
+
+
+/* =====================================================
+   PAYMENT BOX
+===================================================== */
+
+.payment-box {
+
+    margin-top: 9px;
+
+    padding: 10px;
+
+    border: 1px solid var(--input-border);
+
+    background: var(--input-bg);
+
+    border-radius: 8px;
+}
+
+
+.payment-box input {
+
+    width: 150px;
+
+    height: 34px;
+
+    padding: 0 9px;
+
+    background: #111827;
+
+    border: 1px solid var(--border);
+
+    color: white;
+
+    border-radius: 6px;
+
+    font-size: 12px;
+
+    outline: none;
+}
+
+
+.payment-box input:focus {
+
+    border-color: #d72cff;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(215, 44, 255, 0.10);
+}
+
+/* =====================================================
+   CREDIT CARD STATEMENT TABS
+===================================================== */
+
+.statement-tabs {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 4px;
+
+    margin-bottom: 12px;
+
+    border-bottom: 1px solid var(--border);
+
+}
+
+
+/* =====================================================
+   TAB BUTTON
+===================================================== */
+
+.statement-tab {
+
+    position: relative;
+
+    border: none;
+
+    background: transparent;
+
+    color: var(--muted);
+
+    padding: 10px 12px;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        background 0.2s ease;
+
+}
+
+
+/* =====================================================
+   TAB HOVER
+===================================================== */
+
+.statement-tab:hover {
+
+    color: #e2e8f0;
+
+    background: rgba(255, 255, 255, 0.03);
+
+}
+
+
+/* =====================================================
+   ACTIVE TAB
+===================================================== */
+
+.statement-tab.active {
+
+    color: #c084fc;
+
+}
+
+
+/* Purple underline */
+
+.statement-tab.active::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 10px;
+
+    right: 10px;
+
+    bottom: -1px;
+
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #7c3aed,
+            #d72cff
+        );
+
+    border-radius:
+        2px 2px 0 0;
+
+}
+
+
+/* =====================================================
+   STATEMENT CONTENT
+===================================================== */
+
+#creditCardBills {
+
+    width: 100%;
+
+}
+
+
+/* =====================================================
+   STATEMENT LIST
+===================================================== */
+
+.statement-list {
+
+    width: 100%;
+
+}
+
+
+/* =====================================================
+   STATEMENT LIST HEADER
+===================================================== */
+
+.statement-list-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 12px;
+
+}
+
+
+.statement-list-header h3 {
+
+    margin: 0;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    color: #f8fafc;
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 650px) {
+
+    .statement-tabs {
+
+        width: 100%;
+
+    }
+
+
+    .statement-tab {
+
+        flex: 1;
+
+        text-align: center;
+
+    }
+
+}
+
+
+/* =====================================================
+   DEBTS
+===================================================== */
+
+.debt-card {
+    background: var(--panel-2);
+
+    border: 1px solid var(--border);
+
+    border-radius: 11px;
+
+    padding: 15px;
+
+    margin-bottom: 10px;
+}
+
+.debt-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+}
+
+.subheading {
+    margin-top: 30px;
+
+    color: var(--muted);
+}
+
+/* =====================================================
+   DEBT TABS
+===================================================== */
+
+.debt-tabs {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    height: 36px;
+
+    margin-bottom: 8px;
+
+    border-bottom:
+        1px solid rgba(71, 85, 105, 0.35);
+
+}
+
+
+/* =====================================================
+   DEBT TAB
+===================================================== */
+
+.debt-tab {
+
+    position: relative;
+
+    height: 36px;
+
+    padding: 0 2px;
+
+    border: none;
+
+    border-radius: 0;
+
+    background: transparent;
+
+    color: #64748b;
+
+    font-size: 10px;
+
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease;
+
+}
+
+
+/* =====================================================
+   HOVER
+===================================================== */
+
+.debt-tab:hover {
+
+    color: #cbd5e1;
+
+    background: transparent;
+
+}
+
+
+/* =====================================================
+   ACTIVE TAB
+===================================================== */
+
+.debt-tab.active {
+
+    color: #a855f7;
+
+}
+
+
+/* =====================================================
+   ACTIVE UNDERLINE
+===================================================== */
+
+.debt-tab.active::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    right: 0;
+
+    bottom: -1px;
+
+    height: 2px;
+
+    background: #a855f7;
+
+    border-radius:
+        2px 2px 0 0;
+
+}
+
+
+/* =====================================================
+   DEBT CONTENT
+===================================================== */
+
+#debtsContainer,
+#paidDebtsContainer {
+
+    width: 100%;
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 650px) {
+
+    .debt-tabs {
+
+        width: 100%;
+
+    }
+
+
+    .debt-tab {
+
+        flex: 1;
+
+        text-align: center;
+
+    }
+
+}
+
+/* =====================================================
+   EXPENSE HISTORY
+===================================================== */
+
+#expensesSection {
+    width: 100%;
+}
+
+
+/* =====================================================
+   FILTER BAR
+===================================================== */
+
+.expense-history-filters {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(220px, 2fr)
+        minmax(130px, 1fr)
+        minmax(130px, 1fr)
+        minmax(130px, 1fr)
+        minmax(190px, 1.4fr);
+
+    gap: 10px;
+
+    width: 100%;
+
+    margin-bottom: 14px;
+
+}
+
+
+.expense-history-filters .field {
+
+    min-width: 0;
+
+}
+
+
+.expense-history-filters label {
+
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.expense-search-wrap {
+
+    display: flex;
+
+    align-items: center;
+
+    width: 100%;
+
+    height: 40px;
+
+    padding: 0 11px;
+
+    gap: 8px;
+
+    background: var(--input-bg);
+
+    border: 1px solid var(--input-border);
+
+    border-radius: 8px;
+
+}
+
+
+.expense-search-wrap span {
+
+    color: var(--muted);
+
+    opacity: .7;
+
+    font-size: 13px;
+
+}
+
+
+.expense-search-wrap input {
+
+    width: 100%;
+
+    height: 100%;
+
+    padding: 0;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    color: var(--text);
+
+    font-size: 12px;
+
+}
+
+
+.expense-search-wrap input::placeholder {
+
+    color: #64748b;
+
+}
+
+
+/* =====================================================
+   FILTER SELECTS
+===================================================== */
+
+.expense-history-filters select {
+
+    width: 100%;
+
+    height: 40px;
+
+    padding: 0 10px;
+
+    background: var(--input-bg);
+
+    border: 1px solid var(--input-border);
+
+    border-radius: 8px;
+
+    color: var(--text);
+
+    font-size: 12px;
+
+    outline: none;
+
+}
+
+
+.expense-history-filters select:focus {
+
+    border-color: #d72cff;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(215, 44, 255, .10);
+
+}
+
+
+/* =====================================================
+   DATE RANGE
+===================================================== */
+
+.date-range-input {
+
+    display: flex;
+
+    align-items: center;
+
+    width: 100%;
+
+    height: 40px;
+
+    padding: 0 8px;
+
+    background: var(--input-bg);
+
+    border: 1px solid var(--input-border);
+
+    border-radius: 8px;
+
+}
+
+
+.date-range-input input {
+
+    width: 100%;
+
+    min-width: 0;
+
+    height: 34px;
+
+    padding: 0 3px;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    color: var(--text);
+
+    font-size: 11px;
+
+}
+
+
+.date-range-input span {
+
+    flex-shrink: 0;
+
+    padding: 0 5px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+}
+
+
+/* =====================================================
+   FILTER TOOLBAR
+===================================================== */
+
+.expense-history-toolbar {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.expense-history-title {
+
+    color: var(--text);
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+}
+
+
+/* =====================================================
+   EXPENSE LIST
+===================================================== */
+
+#expenseList {
+
+    width: 100%;
+
+    max-width: none;
+
+}
+
+
+/* =====================================================
+   EXPENSE CARD
+===================================================== */
+
+#expenseList .expense {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    background: var(--panel-2);
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    padding: 14px 16px;
+
+    margin-bottom: 8px;
+
+    transition:
+        border-color .2s ease,
+        background .2s ease;
+
+}
+
+
+#expenseList .expense:hover {
+
+    background:
+        rgba(30, 41, 59, .75);
+
+    border-color:
+        rgba(168, 85, 247, .35);
+
+}
+
+
+/* =====================================================
+   EXPENSE TOP
+===================================================== */
+
+#expenseList .expense-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    gap: 20px;
+
+}
+
+
+/* =====================================================
+   EXPENSE NAME
+===================================================== */
+
+#expenseList .expense-name {
+
+    color: #f8fafc;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    line-height: 1.3;
+
+    margin-bottom: 5px;
+
+}
+
+
+/* =====================================================
+   EXPENSE META
+===================================================== */
+
+#expenseList .expense-meta {
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.5;
+
+    margin-top: 4px;
+
+}
+
+
+#expenseList .expense-meta strong {
+
+    color: #cbd5e1;
+
+    font-weight: 600;
+
+}
+
+
+/* =====================================================
+   EXPENSE AMOUNT
+===================================================== */
+
+#expenseList .expense-amount {
+
+    flex-shrink: 0;
+
+    color: #f8fafc;
+
+    font-size: 17px;
+
+    font-weight: 800;
+
+    white-space: nowrap;
+
+}
+
+
+/* =====================================================
+   SPLIT
+===================================================== */
+
+#expenseList .expense > .expense-meta {
+
+    margin-top: 11px !important;
+
+    padding-top: 10px;
+
+    border-top:
+        1px solid
+        rgba(71, 85, 105, .25);
+
+}
+
+
+#expenseList .expense > .expense-meta span {
+
+    display: inline-block;
+
+    margin:
+        0 12px 5px 0 !important;
+
+}
+
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+#expenseList .expense-actions {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    align-items: center;
+
+    gap: 6px;
+
+    margin-top: 7px;
+
+    padding-top: 9px;
+
+    border-top:
+        1px solid
+        rgba(71, 85, 105, .18);
+
+}
+
+
+#expenseList .expense-actions .small-btn {
+
+    padding: 5px 9px;
+
+    font-size: 10px;
+
+    border-radius: 6px;
+
+}
+
+
+/* =====================================================
+   WIDE SCREENS
+===================================================== */
+
+@media (min-width: 1500px) {
+
+    .app {
+
+        max-width: 1600px;
+
+    }
+
+}
+
+
+@media (min-width: 1800px) {
+
+    .app {
+
+        max-width: 1750px;
+
+    }
+
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .expense-history-filters {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 550px) {
+
+    .expense-history-filters {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    #expenseList .expense-top {
+
+        flex-direction: column;
+
+        gap: 8px;
+
+    }
+
+
+    #expenseList .expense-amount {
+
+        font-size: 15px;
+
+    }
+
+
+    #expenseList .expense-actions {
+
+        justify-content: stretch;
+
+    }
+
+
+    #expenseList .expense-actions button {
+
+        flex: 1;
+
+    }
+
+}
+
+
+/* =====================================================
+   SETTINGS
+===================================================== */
+
+.modal {
+    position: fixed;
+
+    inset: 0;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        rgba(2, 6, 23, .75);
+
+    z-index: 1000;
+}
+
+.modal.open {
+    display: flex;
+}
+
+.modal-content {
+    width: min(900px, 100%);
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background: var(--panel);
+
+    border: 1px solid var(--border);
+
+    border-radius: 15px;
+
+    padding: 22px;
+}
+
+.modal-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    margin-bottom: 20px;
+}
+
+.modal-header h2 {
+    margin: 0 0 5px;
+}
+
+.modal-header p {
+    color: var(--muted);
+
+    margin: 0;
+}
+
+.icon-btn {
+    background: transparent;
+
+    color: white;
+
+    font-size: 20px;
+}
+
+.settings-section {
+    padding: 20px 0;
+
+    border-top:
+        1px solid
+        var(--border);
+}
+
+.settings-title {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 12px;
+}
+
+.settings-member-row {
+    display: grid;
+
+    grid-template-columns:
+        100px 1fr 90px;
+
+    gap: 10px;
+
+    align-items: center;
+
+    margin-bottom: 10px;
+}
+
+.settings-member-row input {
+    padding: 10px;
+
+       border: 1px solid var(--input-border);
+
+    background: var(--input-bg);
+
+
+    color: white;
+
+    border-radius: 8px;
+}
+
+.settings-card-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    align-items: center;
+
+    padding: 14px;
+
+    margin-top: 10px;
+
+    background: var(--panel-2);
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+}
+
+.settings-card-info strong {
+    display: block;
+}
+
+.settings-cards {
+    margin-top: 20px;
+}
+
+
+/* =====================================================
+   EMPTY
+===================================================== */
+
+.empty {
+    padding: 30px;
+
+    text-align: center;
+
+    color: var(--muted);
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .overview-grid,
+    .member-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .filter-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 650px) {
+
+    .app {
+        padding: 20px 12px 50px;
+    }
+
+    .app-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .overview-grid,
+    .member-grid,
+    .form-grid,
+    .filter-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+    .split-row {
+        grid-template-columns:
+            1fr;
+    }
+
+    .split-header,
+    .bill-header,
+    .bill-member-top,
+    .debt-row {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .expense-top {
+        flex-direction: column;
+    }
+
+    .expense-amount {
+        font-size: 20px;
+    }
+
+    .settings-member-row {
+        grid-template-columns:
+            1fr;
+    }
+
+    .settings-card-row {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}
