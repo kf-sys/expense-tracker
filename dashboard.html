@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <meta name="theme-color" content="#79c9e8">
+
+    <title>Expense Tracker Dashboard</title>
+
+    <link rel="stylesheet" href="expense.css">
+</head>
+
+<body class="dashboard-page">
+
+    <!-- Decorative background shapes -->
+    <div class="background-shape shape-top"></div>
+    <div class="background-shape shape-bottom"></div>
+
+
+    <main class="dashboard">
+
+        <!-- =====================================================
+             WELCOME
+        ====================================================== -->
+
+        <section class="dashboard-header">
+
+            <div class="user-avatar">
+                KF
+            </div>
+
+            <div class="welcome-text">
+
+                <h1 id="welcomeMessage">
+                    Welcome!
+                </h1>
+
+                <p>
+                    Select your expense group to continue
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             EXPENSE GROUPS
+        ====================================================== -->
+
+        <section class="groups-section">
+
+            <div class="section-title">
+
+                <h2>
+                    Your Expense Groups
+                </h2>
+
+                <p>
+                    Each group keeps its expenses separate.
+                </p>
+
+            </div>
+
+
+            <div class="groups-content">
+
+                <!-- GROUP LIST -->
+
+                <div id="groupsList" class="groups-list">
+
+                    <p class="loading-groups">
+                        Loading your groups...
+                    </p>
+
+                </div>
+
+
+                <!-- CREATE GROUP -->
+
+                <div class="create-group-wrapper">
+
+                    <button
+                        id="createGroupBtn"
+                        class="create-group-btn"
+                        type="button"
+                    >
+                        <span>+</span>
+                        CREATE GROUP
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 CREATE GROUP FORM
+            ================================================== -->
+
+            <div
+                id="createGroupForm"
+                class="create-group-form"
+                style="display: none;"
+            >
+
+                <div class="form-title">
+                    Create a new group
+                </div>
+
+                <input
+                    type="text"
+                    id="groupNameInput"
+                    placeholder="Enter group name"
+                    maxlength="50"
+                    autocomplete="off"
+                >
+
+                <div class="form-buttons">
+
+                    <button
+                        id="saveGroupBtn"
+                        type="button"
+                        class="save-btn"
+                    >
+                        CREATE
+                    </button>
+
+                    <button
+                        id="cancelGroupBtn"
+                        type="button"
+                        class="cancel-btn secondary"
+                    >
+                        CANCEL
+                    </button>
+
+                </div>
+
+                <p id="groupMessage"></p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- SUPABASE -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="supabase.js"></script>
+
+    <script src="dashboard.js"></script>
+
+</body>
+
+</html>
