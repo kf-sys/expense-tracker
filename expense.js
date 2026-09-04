@@ -81,9 +81,19 @@ async function loadSupabaseExpenses() {
         );
 
         return;
-
     }
 
+
+    /* =========================================================
+       MAKE SURE MEMBERS ARE UP TO DATE
+    ========================================================= */
+
+    await loadGroupMembers();
+
+
+    /* =========================================================
+       LOAD EXPENSES
+    ========================================================= */
 
     const {
         data: expenseRows,
@@ -124,14 +134,12 @@ async function loadSupabaseExpenses() {
         );
 
         return;
-
     }
 
 
-    /*
-        Load all splits belonging
-        to the expenses in this group.
-    */
+    /* =========================================================
+       LOAD EXPENSE SPLITS
+    ========================================================= */
 
     const expenseIds =
         expenseRows.map(
@@ -170,7 +178,6 @@ async function loadSupabaseExpenses() {
             );
 
             return;
-
         }
 
 
@@ -180,10 +187,21 @@ async function loadSupabaseExpenses() {
     }
 
 
-    /*
-        Convert Supabase data into
-        the format used by the existing app.
-    */
+    console.log(
+        "Loaded split rows:",
+        splitRows
+    );
+
+
+    console.log(
+        "Current members:",
+        members
+    );
+
+
+    /* =========================================================
+       CONVERT SUPABASE DATA TO APP FORMAT
+    ========================================================= */
 
     expenses =
         expenseRows.map(
@@ -193,9 +211,7 @@ async function loadSupabaseExpenses() {
 
 
                 /*
-                    Start every member at 0.
-                    This keeps the existing UI
-                    compatible.
+                    Initialize every current member.
                 */
 
                 members.forEach(
@@ -210,7 +226,7 @@ async function loadSupabaseExpenses() {
 
 
                 /*
-                    Insert actual splits.
+                    Add the actual saved splits.
                 */
 
                 splitRows
@@ -231,6 +247,13 @@ async function loadSupabaseExpenses() {
 
                         }
                     );
+
+
+                console.log(
+                    "Expense split:",
+                    expense.id,
+                    split
+                );
 
 
                 return {
@@ -264,8 +287,8 @@ async function loadSupabaseExpenses() {
                         expense.credit_card_id ||
                         null,
 
-                    splits:   
-                    split
+                    splits:
+                        split
 
                 };
 
@@ -279,49 +302,6 @@ async function loadSupabaseExpenses() {
     );
 
 }
-
-
-
-// async function testLogin() {
-
-//     const email = prompt("Enter your Supabase email:");
-//     const password = prompt("Enter your Supabase password:");
-
-//     const {
-//         data,
-//         error
-//     } = await supabaseClient.auth.signInWithPassword({
-//         email: email,
-//         password: password
-//     });
-
-
-//     if (error) {
-
-//         console.error(
-//             "Login failed:",
-//             error
-//         );
-
-//         alert(
-//             "Login failed: " +
-//             error.message
-//         );
-
-//         return;
-
-//     }
-
-
-//     console.log(
-//         "Login successful!",
-//         data.user
-//     );
-
-// }
-
-// testLogin();
-
 /* =========================================================
    LOAD CREDIT CARDS FROM SUPABASE
    STEP 10.1
@@ -805,7 +785,7 @@ async function getCurrentUser() {
 
     }
 
-}
+}   
 
 async function logoutUser() {
 
@@ -851,70 +831,77 @@ async function logoutUser() {
 }
 
 
-
 async function getCurrentUserGroup() {
 
     if (!currentUser) {
-
-        console.error(
-            "No logged-in user."
-        );
-
+        console.error("No logged-in user.");
         return null;
     }
 
-    const {
-        data,
-        error
-    } = await supabaseClient
-        .from("group_members")
-        .select(`
-            id,
-            group_id,
-            display_name
-        `)
-        .eq(
-            "user_id",
-            currentUser.id
-        )
-        .single();
+    // Get the group selected from the dashboard
+    const selectedGroupId =
+        sessionStorage.getItem("selectedGroupId");
 
-    if (error) {
+    if (selectedGroupId) {
 
-        console.error(
-            "Could not find user's group:",
-            error
-        );
+        const { data, error } = await supabaseClient
+            .from("groups")
+            .select(`
+                id,
+                name,
+                created_by
+            `)
+            .eq("id", selectedGroupId)
+            .eq("created_by", currentUser.id)
+            .maybeSingle();
 
-        return null;
+        if (error) {
+
+            console.error(
+                "Could not load selected group:",
+                error
+            );
+
+            return null;
+        }
+
+        if (!data) {
+
+            console.error(
+                "Selected group does not belong to this account."
+            );
+
+            return null;
+        }
+
+        currentGroupId = data.id;
+
+        console.log("Selected group:", data);
+        console.log("Current group ID:", currentGroupId);
+
+        return data;
     }
 
-    currentGroupId =
-        data.group_id;
 
-    console.log(
-        "Current group:",
-        data
-    );
+    // No selected group
+    console.error("No expense group selected.");
 
-    console.log(
-        "Current group ID:",
-        currentGroupId
-    );
-
-    return data;
+    return null;
 }
+
+
 
 async function loadGroupMembers() {
 
     if (!currentGroupId) {
-
-        console.error(
-            "No current group ID."
-        );
-
+        console.error("No current group ID.");
         return;
     }
+
+    console.log(
+        "Loading members for group:",
+        currentGroupId
+    );
 
     const {
         data,
@@ -927,16 +914,10 @@ async function loadGroupMembers() {
             user_id,
             display_name
         `)
-        .eq(
-            "group_id",
-            currentGroupId
-        )
-        .order(
-            "created_at",
-            {
-                ascending: true
-            }
-        );
+        .eq("group_id", currentGroupId)
+        .order("created_at", {
+            ascending: true
+        });
 
     if (error) {
 
@@ -948,26 +929,28 @@ async function loadGroupMembers() {
         return;
     }
 
-    members =
-        data.map(
-            member => ({
+    console.log(
+        "Members returned from Supabase:",
+        data
+    );
 
-                id:
-                    member.id,
 
-                name:
-                    member.display_name,
+    members = data.map(
+        member => ({
+            id: member.id,
+            name: member.display_name,
+            userId: member.user_id
+        })
+    );
 
-                userId:
-                    member.user_id
-
-            })
-        );
 
     console.log(
-        "Group members loaded:",
+        "MEMBERS ARRAY:",
         members
     );
+
+
+    populateMemberDropdowns();
 
 }
 
@@ -975,93 +958,51 @@ async function initializeSupabaseApp() {
 
     try {
 
-        /*
-            1. Get logged-in user
-        */
-     const user =
-        await getCurrentUser();
-
+        const user = await getCurrentUser();
 
         if (!user) {
 
-             console.error(
-             "No logged-in user."
-         );
+            console.error("No logged-in user.");
 
-
-    window.location.href =
-        "login.html";
-
-
-    return false;
-
-}
-
-        /*
-            2. Get user's group
-        */
-
-        const group =
-            await getCurrentUserGroup();
-
-        if (!group) {
-
-            console.error(
-                "User does not belong to a group."
-            );
+            window.location.href = "login.html";
 
             return false;
-
         }
 
+        // Store the current user
+        currentUser = user;
 
-        /*
-            3. Load members from Supabase
-        */
+        // Find the selected expense group
+        const group = await getCurrentUserGroup();
 
+        // User must select a group from the dashboard
+        if (!group) {
+
+            console.error("No expense group selected.");
+
+            window.location.href = "dashboard.html";
+
+            return false;
+        }
+
+        // Load members and expenses
         await loadGroupMembers();
-
-
-        /*
-            4. Load expenses + splits
-        */
 
         await loadSupabaseExpenses();
 
+        console.log("Supabase app initialized.");
 
-        /*
-            Everything loaded successfully.
-        */
+        console.log("User ID:", currentUser.id);
 
-        console.log(
-            "Supabase app initialized."
-        );
+        console.log("Current Group ID:", currentGroupId);
 
-        console.log(
-            "User ID:",
-            currentUser.id
-        );
+        console.log("Members:", members);
 
-        console.log(
-            "Group ID:",
-            currentGroupId
-        );
-
-        console.log(
-            "Members:",
-            members
-        );
-
-        console.log(
-            "Expenses:",
-            expenses
-        );
-
+        console.log("Expenses:", expenses);
 
         return true;
 
-    }
-    catch (error) {
+    } catch (error) {
 
         console.error(
             "Supabase initialization error:",
@@ -1069,9 +1010,7 @@ async function initializeSupabaseApp() {
         );
 
         return false;
-
     }
-
 }
 
 const STORAGE_KEY = "groupExpenseTrackerV4";
@@ -2577,75 +2516,47 @@ async function removeMember(
 
 }
 
+
 async function saveMembers() {
 
     if (!currentUser) {
-
-        alert(
-            "You are not logged in."
-        );
-
+        alert("You are not logged in.");
         return;
-
     }
-
 
     if (!currentGroupId) {
-
-        alert(
-            "No group is currently selected."
-        );
-
+        alert("No group is currently selected.");
         return;
-
     }
-
 
     const inputs =
-        document.querySelectorAll(
-            ".member-input"
-        );
-
+        document.querySelectorAll(".member-input");
 
     const names =
-        Array.from(
-            inputs
-        ).map(
-            input =>
-                input.value.trim()
+        Array.from(inputs).map(
+            input => input.value.trim()
         );
 
 
-    /*
-        Validate names.
-    */
+    /* =========================================================
+       VALIDATE NAMES
+    ========================================================= */
 
-    if (
-        names.some(
-            name =>
-                !name
-        )
-    ) {
+    if (names.some(name => !name)) {
 
-        alert(
-            "All member names are required."
-        );
-
+        alert("All member names are required.");
         return;
 
     }
 
 
-    /*
-        Prevent duplicate names.
-    */
+    /* =========================================================
+       PREVENT DUPLICATE NAMES
+    ========================================================= */
 
     const duplicate =
         names.some(
-            (
-                name,
-                index
-            ) =>
+            (name, index) =>
                 names.findIndex(
                     other =>
                         other.toLowerCase() ===
@@ -2653,13 +2564,9 @@ async function saveMembers() {
                 ) !== index
         );
 
-
     if (duplicate) {
 
-        alert(
-            "Member names must be unique."
-        );
-
+        alert("Member names must be unique.");
         return;
 
     }
@@ -2667,15 +2574,11 @@ async function saveMembers() {
 
     try {
 
-        /*
-            =========================================
-            PROCESS EACH MEMBER
-            =========================================
-        */
+        /* =====================================================
+           SAVE EACH MEMBER
+        ===================================================== */
 
-        for (
-            const input of inputs
-        ) {
+        for (const input of inputs) {
 
             const memberId =
                 input.dataset.id;
@@ -2684,73 +2587,45 @@ async function saveMembers() {
                 input.value.trim();
 
 
-            /*
-                =====================================
-                EXISTING MEMBER
-                =====================================
-            */
+            /* =================================================
+               EXISTING MEMBER
+            ================================================= */
 
             if (memberId) {
 
-                const {
-                    error
-                } = await supabaseClient
-                    .from("group_members")
-                    .update({
-
-                        display_name:
-                            name
-
-                    })
-                    .eq(
-                        "id",
-                        memberId
-                    )
-                    .eq(
-                        "group_id",
-                        currentGroupId
-                    );
-
+                const { error } =
+                    await supabaseClient
+                        .from("group_members")
+                        .update({
+                            display_name: name
+                        })
+                        .eq("id", memberId)
+                        .eq("group_id", currentGroupId);
 
                 if (error) {
-
                     throw error;
-
                 }
 
             }
 
 
-            /*
-                =====================================
-                NEW MEMBER
-                =====================================
-            */
+            /* =================================================
+               NEW MEMBER
+            ================================================= */
 
             else {
 
-                const {
-                    error
-                } = await supabaseClient
-                    .from("group_members")
-                    .insert({
-
-                        group_id:
-                            currentGroupId,
-
-                        user_id:
-                            null,
-
-                        display_name:
-                            name
-
-                    });
-
+                const { error } =
+                    await supabaseClient
+                        .from("group_members")
+                        .insert({
+                            group_id: currentGroupId,
+                            user_id: null,
+                            display_name: name
+                        });
 
                 if (error) {
-
                     throw error;
-
                 }
 
             }
@@ -2758,16 +2633,25 @@ async function saveMembers() {
         }
 
 
-        /*
-            Reload members from Supabase.
-        */
+        /* =====================================================
+           IMPORTANT:
+           RELOAD MEMBERS FROM SUPABASE
+        ===================================================== */
 
         await loadGroupMembers();
 
 
-        /*
-            Refresh the application.
-        */
+        console.log(
+            "Updated members after saving:",
+            members
+        );
+
+
+        /* =====================================================
+           REFRESH MEMBER-BASED UI
+        ===================================================== */
+
+        populateMemberDropdowns();
 
         renderAll();
 
@@ -2778,6 +2662,7 @@ async function saveMembers() {
             "Members saved successfully."
         );
 
+
     }
     catch (error) {
 
@@ -2785,7 +2670,6 @@ async function saveMembers() {
             "Could not save members:",
             error
         );
-
 
         alert(
             "Could not save members.\n\n" +
@@ -2796,6 +2680,8 @@ async function saveMembers() {
 
 }
 
+
+
 /* =========================================================
    DROPDOWNS
 ========================================================= */
@@ -2803,105 +2689,103 @@ async function saveMembers() {
 function populateMemberDropdowns() {
 
     const paidBy =
-        document.getElementById(
-            "paidBy"
-        );
+        document.getElementById("paidBy");
 
     const owner =
-        document.getElementById(
-            "newCardOwner"
-        );
+        document.getElementById("newCardOwner");
 
 
-    if (!paidBy || !owner)
-        return;
+    /* =====================================================
+       PAID BY DROPDOWN
+    ===================================================== */
+
+    if (paidBy) {
+
+        const oldPaid =
+            paidBy.value;
+
+        paidBy.innerHTML = "";
 
 
-    const oldPaid =
-        paidBy.value;
+        members.forEach(member => {
 
-    const oldOwner =
-        owner.value;
-
-
-    paidBy.innerHTML =
-        "";
-
-    owner.innerHTML =
-        "";
-
-
-    members.forEach(
-        member => {
-
-            const option1 =
+            const option =
                 new Option(
                     member.name,
                     member.id
                 );
 
-            const option2 =
-                new Option(
-                    member.name,
-                    member.id
-                );
+            paidBy.appendChild(option);
+
+        });
 
 
-            paidBy.appendChild(
-                option1
-            );
+        if (memberExists(oldPaid)) {
 
-            owner.appendChild(
-                option2
-            );
+            paidBy.value =
+                oldPaid;
 
         }
-    );
+        else if (members.length > 0) {
 
+            paidBy.value =
+                members[0].id;
 
-    if (
-        memberExists(
-            oldPaid
-        )
-    ) {
-
-        paidBy.value =
-            oldPaid;
-
-    }
-    else if (
-        members.length
-    ) {
-
-        paidBy.value =
-            members[0].id;
+        }
 
     }
 
 
-    if (
-        memberExists(
-            oldOwner
-        )
-    ) {
+    /* =====================================================
+       CREDIT CARD OWNER DROPDOWN
+    ===================================================== */
 
-        owner.value =
-            oldOwner;
+    if (owner) {
+
+        const oldOwner =
+            owner.value;
+
+        owner.innerHTML = "";
+
+
+        members.forEach(member => {
+
+            const option =
+                new Option(
+                    member.name,
+                    member.id
+                );
+
+            owner.appendChild(option);
+
+        });
+
+
+        if (memberExists(oldOwner)) {
+
+            owner.value =
+                oldOwner;
+
+        }
+        else if (members.length > 0) {
+
+            owner.value =
+                members[0].id;
+
+        }
 
     }
-    else if (
-        members.length
-    ) {
 
-        owner.value =
-            members[0].id;
 
-    }
-
+    /* =====================================================
+       EXPENSE FILTER
+    ===================================================== */
 
     renderExpenseFilterMembers();
 
 }
+
+
 
 
 /* =========================================================
@@ -5214,11 +5098,6 @@ function cancelEdit() {
 
 }
 
-
-/* =========================================================
-   MEMBER SUMMARY
-========================================================= */
-
 /* =========================================================
    MEMBER SUMMARY
 ========================================================= */
@@ -5254,10 +5133,6 @@ function renderMemberSummary() {
             /*
                 Calculate the member's total
                 share across ALL expenses.
-
-                Credit-card expenses are included
-                here because they are still part
-                of the member's responsibility.
             */
 
             expenses.forEach(
@@ -5279,20 +5154,19 @@ function renderMemberSummary() {
                 CASH / E-WALLET OUTSTANDING DEBT
                 =================================================
 
-                Find all unpaid debts where this
-                member is the debtor.
+                Check each individual debt so that
+                paid/unpaid status is tracked per expense.
             */
 
-            let cashDebt =
-                0;
+            let cashDebt = 0;
 
 
-            members.forEach(
-                creditor => {
+            debts.forEach(
+                debt => {
 
                     if (
-                        member.id ===
-                        creditor.id
+                        debt.debtorId !==
+                        member.id
                     ) {
 
                         return;
@@ -5300,42 +5174,23 @@ function renderMemberSummary() {
                     }
 
 
-                    const amount =
-                        Number(
-                            debts[
-                                member.id
-                            ]?.[
-                                creditor.id
-                            ] || 0
-                        );
-
-
                     if (
-                        amount <=
-                        0.009
-                    ) {
-
-                        return;
-
-                    }
-
-
-                    /*
-                        Only count the debt if
-                        it has NOT been marked paid.
-                    */
-
-                    if (
-                        !isDebtPaid(
-                            member.id,
-                            creditor.id
+                        isDebtPaid(
+                            debt.expenseId,
+                            debt.debtorId,
+                            debt.creditorId
                         )
                     ) {
 
-                        cashDebt +=
-                            amount;
+                        return;
 
                     }
+
+
+                    cashDebt +=
+                        Number(
+                            debt.amount || 0
+                        );
 
                 }
             );
@@ -5345,14 +5200,9 @@ function renderMemberSummary() {
                 =================================================
                 CREDIT-CARD OUTSTANDING BALANCE
                 =================================================
-
-                Calculate how much this member
-                still owes across all credit-card
-                statements.
             */
 
-            let creditCardRemaining =
-                0;
+            let creditCardRemaining = 0;
 
 
             getBillGroups()
@@ -5370,8 +5220,7 @@ function renderMemberSummary() {
 
 
             /*
-                Round financial values to
-                two decimal places.
+                Round financial values.
             */
 
             cashDebt =
@@ -5406,24 +5255,18 @@ function renderMemberSummary() {
                 AMOUNT STILL OWED TO THIS MEMBER
                 =================================================
 
-                Example:
-
-                John owes You ₱500
-
-                You should see:
-
-                Gets back ₱500
+                Check each individual debt where
+                this member is the creditor.
             */
 
-            let cashReceivable =
-                0;
+            let cashReceivable = 0;
 
 
-            members.forEach(
-                debtor => {
+            debts.forEach(
+                debt => {
 
                     if (
-                        debtor.id ===
+                        debt.creditorId !==
                         member.id
                     ) {
 
@@ -5432,19 +5275,12 @@ function renderMemberSummary() {
                     }
 
 
-                    const amount =
-                        Number(
-                            debts[
-                                debtor.id
-                            ]?.[
-                                member.id
-                            ] || 0
-                        );
-
-
                     if (
-                        amount <=
-                        0.009
+                        isDebtPaid(
+                            debt.expenseId,
+                            debt.debtorId,
+                            debt.creditorId
+                        )
                     ) {
 
                         return;
@@ -5452,22 +5288,10 @@ function renderMemberSummary() {
                     }
 
 
-                    /*
-                        Only count debts that
-                        have NOT been marked paid.
-                    */
-
-                    if (
-                        !isDebtPaid(
-                            debtor.id,
-                            member.id
-                        )
-                    ) {
-
-                        cashReceivable +=
-                            amount;
-
-                    }
+                    cashReceivable +=
+                        Number(
+                            debt.amount || 0
+                        );
 
                 }
             );
@@ -5483,15 +5307,6 @@ function renderMemberSummary() {
                 =================================================
                 NET POSITION
                 =================================================
-
-                Positive:
-                Member should receive money.
-
-                Negative:
-                Member still owes money.
-
-                Zero:
-                Everything is settled.
             */
 
             const net =
@@ -5509,8 +5324,7 @@ function renderMemberSummary() {
                 =================================================
             */
 
-            let netHTML =
-                "";
+            let netHTML = "";
 
 
             if (
@@ -5584,23 +5398,31 @@ function renderMemberSummary() {
 
                 <div class="member-name">
 
-    <span class="member-avatar">
-        ${escapeHTML(
-            member.name
-                .split(" ")
-                .map(name => name.charAt(0))
-                .join("")
-                .substring(0, 2)
-                .toUpperCase()
-        )}
-    </span>
+                    <span class="member-avatar">
 
-    <span class="member-name-text">
-        ${escapeHTML(member.name)}
-    </span>
+                        ${escapeHTML(
+                            member.name
+                                .split(" ")
+                                .map(
+                                    name =>
+                                        name.charAt(0)
+                                )
+                                .join("")
+                                .substring(0, 2)
+                                .toUpperCase()
+                        )}
 
-</div>
+                    </span>
 
+                    <span class="member-name-text">
+
+                        ${escapeHTML(
+                            member.name
+                        )}
+
+                    </span>
+
+                </div>
 
 
                 <div class="member-line">
@@ -5713,7 +5535,6 @@ function renderMemberSummary() {
     );
 
 }
-
 
 /* =========================================================
    CREDIT CARD BILLING
@@ -8356,10 +8177,6 @@ function downloadMemberReceipt(
 /* =========================================================
    DEBTS
 ========================================================= */
-/* =========================================================
-   DEBTS
-   STEP 12.4 → EXPENSE-BASED DEBTS
-========================================================= */
 
 function calculateDebts() {
 
@@ -9959,7 +9776,7 @@ function renderExpenses() {
                         )}'
                     )"
                 >
-                    ✏️ Edit
+                   <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" viewBox="0 20 640 640"><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path fill="rgb(39, 39, 39)" d="M505 122.9L517.1 135C526.5 144.4 526.5 159.6 517.1 168.9L488 198.1L441.9 152L471 122.9C480.4 113.5 495.6 113.5 504.9 122.9zM273.8 320.2L408 185.9L454.1 232L319.8 366.2C316.9 369.1 313.3 371.2 309.4 372.3L250.9 389L267.6 330.5C268.7 326.6 270.8 323 273.7 320.1zM437.1 89L239.8 286.2C231.1 294.9 224.8 305.6 221.5 317.3L192.9 417.3C190.5 425.7 192.8 434.7 199 440.9C205.2 447.1 214.2 449.4 222.6 447L322.6 418.4C334.4 415 345.1 408.7 353.7 400.1L551 202.9C579.1 174.8 579.1 129.2 551 101.1L538.9 89C510.8 60.9 465.2 60.9 437.1 89zM152 128C103.4 128 64 167.4 64 216L64 488C64 536.6 103.4 576 152 576L424 576C472.6 576 512 536.6 512 488L512 376C512 362.7 501.3 352 488 352C474.7 352 464 362.7 464 376L464 488C464 510.1 446.1 528 424 528L152 528C129.9 528 112 510.1 112 488L112 216C112 193.9 129.9 176 152 176L264 176C277.3 176 288 165.3 288 152C288 138.7 277.3 128 264 128L152 128z"/></svg> Edit
                 </button>
 
 
@@ -10521,82 +10338,206 @@ function importData(
 
 
 /* =========================================================
-   RESET
+   RESET ALL DATA
 ========================================================= */
 
-function resetAllData() {
+async function resetAllData() {
+
+    if (!currentUser) {
+
+        alert(
+            "You are not logged in."
+        );
+
+        return;
+    }
+
+
+    if (!currentGroupId) {
+
+        alert(
+            "No expense group is currently selected."
+        );
+
+        return;
+    }
+
 
     const confirmed =
         confirm(
-            "This will delete all members, credit cards, expenses, payment statuses and debt statuses.\n\nAre you sure?"
+            "This will permanently delete all expenses, " +
+            "credit cards, bill payments, debt payments, " +
+            "and payment statuses for this group.\n\n" +
+            "Your group and members will NOT be deleted.\n\n" +
+            "This action cannot be undone.\n\n" +
+            "Are you sure?"
         );
 
 
-    if (!confirmed)
+    if (!confirmed) {
         return;
+    }
 
 
-    members = [
+    try {
 
-        {
-            id:
-                generateId("member"),
+        /*
+            -------------------------------------------------
+            1. DELETE DEBT PAYMENTS
+            -------------------------------------------------
+        */
 
-            name:
-                "You"
-        },
+        const {
+            error: debtError
+        } =
+            await supabaseClient
+                .from("debt_payments")
+                .delete()
+                .eq(
+                    "group_id",
+                    currentGroupId
+                );
 
-        {
-            id:
-                generateId("member"),
 
-            name:
-                "John"
-        },
-
-        {
-            id:
-                generateId("member"),
-
-            name:
-                "Maria"
-        },
-
-        {
-            id:
-                generateId("member"),
-
-            name:
-                "Peter"
+        if (debtError) {
+            throw debtError;
         }
 
-    ];
+
+        /*
+            -------------------------------------------------
+            2. DELETE BILL PAYMENTS
+            -------------------------------------------------
+        */
+
+        const {
+            error: billPaymentError
+        } =
+            await supabaseClient
+                .from("bill_payments")
+                .delete()
+                .eq(
+                    "group_id",
+                    currentGroupId
+                );
 
 
-    creditCards = [];
-
-    expenses = [];
-
-    billPayments = {};
-
-    debtPayments = {};
+        if (billPaymentError) {
+            throw billPaymentError;
+        }
 
 
-    saveAllData();
+        /*
+            -------------------------------------------------
+            3. DELETE CREDIT CARDS
+            -------------------------------------------------
+        */
 
-    resetExpenseForm();
+        const {
+            error: creditCardError
+        } =
+            await supabaseClient
+                .from("credit_cards")
+                .delete()
+                .eq(
+                    "group_id",
+                    currentGroupId
+                );
 
-    renderAll();
 
-    renderSettings();
+        if (creditCardError) {
+            throw creditCardError;
+        }
 
 
-    alert(
-        "All data has been reset."
-    );
+        /*
+            -------------------------------------------------
+            4. DELETE EXPENSES
+            -------------------------------------------------
+
+            expense_splits will automatically be deleted
+            because expense_splits.expense_id has
+            ON DELETE CASCADE.
+        */
+
+        const {
+            error: expenseError
+        } =
+            await supabaseClient
+                .from("expenses")
+                .delete()
+                .eq(
+                    "group_id",
+                    currentGroupId
+                );
+
+
+        if (expenseError) {
+            throw expenseError;
+        }
+
+
+        /*
+            -------------------------------------------------
+            5. CLEAR LOCAL ARRAYS
+            -------------------------------------------------
+        */
+
+        expenses = [];
+
+        creditCards = [];
+
+        billPayments = {};
+
+        debtPayments = {};
+
+
+        /*
+            -------------------------------------------------
+            6. RESET FORM
+            -------------------------------------------------
+        */
+
+        resetExpenseForm();
+
+
+        /*
+            -------------------------------------------------
+            7. REFRESH UI
+            -------------------------------------------------
+        */
+
+        renderAll();
+
+        renderSettings();
+
+
+        alert(
+            "All expense data has been permanently reset."
+        );
+
+
+        console.log(
+            "Group data reset successfully:",
+            currentGroupId
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "Could not reset group data:",
+            error
+        );
+
+        alert(
+            "Could not reset all data.\n\n" +
+            error.message
+        );
+
+    }
 
 }
-
 
 /* =========================================================
    RENDER EVERYTHING
