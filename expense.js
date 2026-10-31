@@ -8664,155 +8664,287 @@ function renderDebts() {
     );
 
 
-    /* =====================================================
-       OUTSTANDING DEBTS
-    ===================================================== */
+/* =====================================================
+   OUTSTANDING DEBTS
+===================================================== */
 
-    if (
-        outstandingDebts.length === 0
+if (
+    outstandingDebts.length === 0
+) {
+
+    container.innerHTML = `
+
+        <div class="empty">
+
+            No outstanding cash or
+            e-wallet debts.
+
+        </div>
+
+    `;
+
+}
+else {
+
+    const visibleDebts =
+        outstandingDebts.slice(
+            0,
+            3
+        );
+
+    const hiddenDebts =
+        outstandingDebts.slice(
+            3
+        );
+
+
+    /* =================================================
+       CREATE DEBT CARD
+    ================================================= */
+
+    function createDebtCard(
+        debt
     ) {
 
-        container.innerHTML = `
+        const debtor =
+            getMember(
+                debt.debtorId
+            );
 
-            <div class="empty">
+        const creditor =
+            getMember(
+                debt.creditorId
+            );
 
-                No outstanding cash or
-                e-wallet debts.
+
+        if (
+            !debtor ||
+            !creditor
+        ) {
+
+            return null;
+
+        }
+
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+
+        div.className =
+            "debt-card";
+
+
+        div.innerHTML = `
+
+            <div class="debt-row">
+
+                <div>
+
+                    <strong>
+
+                        ${escapeHTML(
+                            debtor.name
+                        )}
+
+                        owes
+
+                        ${escapeHTML(
+                            creditor.name
+                        )}
+
+                    </strong>
+
+
+                    <div class="expense-meta">
+
+                        💵 Cash / E-Wallet Debt
+
+                        <br>
+
+                        Expense:
+                        ${escapeHTML(
+                            debt.description
+                        )}
+
+                        <br>
+
+                        Date:
+                        ${escapeHTML(
+                            debt.date
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <span class="owe">
+
+                        ${money(
+                            debt.amount
+                        )}
+
+                    </span>
+
+                    <br><br>
+
+
+                    <button
+                        class="success small-btn"
+                        onclick="toggleDebtPaid(
+                            '${escapeHTML(
+                                debt.expenseId
+                            )}',
+                            '${escapeHTML(
+                                debt.debtorId
+                            )}',
+                            '${escapeHTML(
+                                debt.creditorId
+                            )}'
+                        )"
+                    >
+
+                        ✓ Mark Paid
+
+                    </button>
+
+                </div>
 
             </div>
 
         `;
 
+
+        return div;
+
     }
-    else {
-
-        outstandingDebts.forEach(
-            debt => {
-
-                const debtor =
-                    getMember(
-                        debt.debtorId
-                    );
 
 
-                const creditor =
-                    getMember(
-                        debt.creditorId
-                    );
+    /* =================================================
+       SHOW FIRST 3
+    ================================================= */
+
+    visibleDebts.forEach(
+        debt => {
+
+            const card =
+                createDebtCard(
+                    debt
+                );
 
 
-                if (
-                    !debtor ||
-                    !creditor
-                ) {
-
-                    return;
-
-                }
-
-
-                const div =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                div.className =
-                    "debt-card";
-
-
-                div.innerHTML = `
-
-                    <div class="debt-row">
-
-                        <div>
-
-                            <strong>
-
-                                ${escapeHTML(
-                                    debtor.name
-                                )}
-
-                                owes
-
-                                ${escapeHTML(
-                                    creditor.name
-                                )}
-
-                            </strong>
-
-
-                            <div class="expense-meta">
-
-                                💵 Cash / E-Wallet Debt
-
-                                <br>
-
-                                Expense:
-                                ${escapeHTML(
-                                    debt.description
-                                )}
-
-                                <br>
-
-                                Date:
-                                ${escapeHTML(
-                                    debt.date
-                                )}
-
-                            </div>
-
-                        </div>
-
-
-                        <div>
-
-                            <span class="owe">
-
-                                ${money(
-                                    debt.amount
-                                )}
-
-                            </span>
-
-                            <br><br>
-
-
-                            <button
-                                class="success small-btn"
-                                onclick="toggleDebtPaid(
-                                    '${escapeHTML(
-                                        debt.expenseId
-                                    )}',
-                                    '${escapeHTML(
-                                        debt.debtorId
-                                    )}',
-                                    '${escapeHTML(
-                                        debt.creditorId
-                                    )}'
-                                )"
-                            >
-
-                                ✓ Mark Paid
-
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                `;
-
+            if (card) {
 
                 container.appendChild(
-                    div
+                    card
                 );
+
+            }
+
+        }
+    );
+
+
+    /* =================================================
+       SHOW MORE
+    ================================================= */
+
+    if (
+        hiddenDebts.length > 0
+    ) {
+
+        const moreContainer =
+            document.createElement(
+                "div"
+            );
+
+
+        moreContainer.style.display =
+            "none";
+
+
+        hiddenDebts.forEach(
+            debt => {
+
+                const card =
+                    createDebtCard(
+                        debt
+                    );
+
+
+                if (card) {
+
+                    moreContainer.appendChild(
+                        card
+                    );
+
+                }
 
             }
         );
 
+
+        container.appendChild(
+            moreContainer
+        );
+
+
+        const toggleButton =
+            document.createElement(
+                "button"
+            );
+
+
+        toggleButton.className =
+            "secondary small-btn";
+
+
+        toggleButton.style.marginTop =
+            "12px";
+
+
+        toggleButton.style.width =
+            "100%";
+
+
+        toggleButton.textContent =
+            `View More (${hiddenDebts.length}) ▼`;
+
+
+        toggleButton.onclick =
+            function() {
+
+                const hidden =
+                    moreContainer.style.display ===
+                    "none";
+
+
+                moreContainer.style.display =
+                    hidden
+                        ? "block"
+                        : "none";
+
+
+                toggleButton.textContent =
+                    hidden
+                        ? "Show Less ▲"
+                        : `View More (${hiddenDebts.length}) ▼`;
+
+            };
+
+
+        container.appendChild(
+            toggleButton
+        );
+
     }
 
+}
 
     /* =====================================================
        PAID DEBTS
@@ -10730,3 +10862,44 @@ document.addEventListener(
 
     }
 );
+
+function toggleMobileMenu() {
+    const menu = document.getElementById("mobileMenu");
+    const button = document.querySelector(".hamburger-btn");
+
+    if (!menu) return;
+
+    const isOpen = menu.classList.toggle("show");
+
+    if (button) {
+        button.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    }
+}
+
+
+function closeMobileMenu() {
+    const menu = document.getElementById("mobileMenu");
+    const button = document.querySelector(".hamburger-btn");
+
+    if (!menu) return;
+
+    menu.classList.remove("show");
+
+    if (button) {
+        button.setAttribute("aria-expanded", "false");
+    }
+}
+
+
+function toggleUserMenu() {
+    const dropdown = document.getElementById("userDropdown");
+    const button = document.querySelector(".user-menu-btn");
+
+    if (!dropdown) return;
+
+    const isOpen = dropdown.classList.toggle("show");
+
+    if (button) {
+        button.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    }
+}
