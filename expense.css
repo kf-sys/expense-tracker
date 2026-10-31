@@ -168,122 +168,41 @@ button:hover,
 
     padding: 30px 20px 70px;
 }
+
+
 /* =====================================================
    HEADER
 ===================================================== */
 
 .app-header {
-
+    position: relative;
     display: flex;
-
-    justify-content:
-        space-between;
-
     align-items: center;
-
-    gap: 20px;
-
+    justify-content: space-between;
+    gap: 24px;
     margin-bottom: 10px;
-
-    padding:
-        14px 16px;
-
+    padding: 12px 16px;
 }
 
-.header-btn {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 7px;
-
-    height: 42px;
-
-    padding: 0 13px;
-
-    border: none;
-
-    margin: 0;
-
-    line-height: 1;
-
-    font-family: inherit;
-
-    font-size: 14px;
-
-    cursor: pointer;
-
-}
-
-
-.header-btn svg {
-
-    width: 19px;
-
-    height: 19px;
-
-    display: block;
-
-    flex-shrink: 0;
-
-}
-
-
-.header-btn span {
-
-    display: block;
-
-    line-height: 1;
-
-}
-
-
-label.header-btn {
-
-    cursor: pointer;
-
-}
-
-.dashboard-btn {
-    border-color: rgba(255, 255, 255, 0.10);
-}
-
-.dashboard-btn:hover {
-    background: rgba(255, 255, 255, 0.06);
-}
 
 /* =====================================================
    BRAND
 ===================================================== */
 
 .app-brand {
-
     display: flex;
-
     align-items: center;
-
     gap: 11px;
-
     min-width: 0;
-
 }
 
-
 .app-brand-icon {
-
-    width: 58px;
-
-    height: 58px;
-
+    width: 48px;
+    height: 48px;
     flex-shrink: 0;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     border-radius: 9px;
@@ -298,62 +217,44 @@ label.header-btn {
     box-shadow:
         0 5px 14px
         rgba(124, 58, 237, 0.25);
-
 }
-
 
 .app-brand-icon svg {
-
-    width: 40px;
-
-    height: 40px;
+    width: 32px;
+    height: 32px;
 
     fill: none;
-
     stroke: white;
-
     stroke-width: 1.8;
-
     stroke-linecap: round;
-
     stroke-linejoin: round;
-
 }
-
 
 .app-brand-text {
-
     min-width: 0;
-
 }
 
-
 .app-brand-text h1 {
-
     margin: 0;
 
-    font-size: 24px;
-
+    font-size: 21px;
     line-height: 1.2;
-
     font-weight: 700;
 
     color: #f8fafc;
 
+    white-space: nowrap;
 }
 
-
 .app-brand-text p {
+    margin: 3px 0 0;
 
-    margin:
-        3px 0 0;
-
-    font-size: 16px;
-
+    font-size: 13px;
     line-height: 1.3;
 
     color: #7f94b2;
 
+    white-space: nowrap;
 }
 
 
@@ -362,15 +263,13 @@ label.header-btn {
 ===================================================== */
 
 .header-actions {
-
     display: flex;
-
     align-items: center;
+    justify-content: flex-end;
 
     gap: 6px;
 
-    flex-wrap: wrap;
-
+    flex-shrink: 0;
 }
 
 
@@ -379,19 +278,14 @@ label.header-btn {
 ===================================================== */
 
 .header-btn {
-
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
 
     gap: 5px;
 
-    height: 40px;
-
-    padding:
-        0 9px;
+    height: 38px;
+    padding: 0 10px;
 
     border:
         1px solid
@@ -404,8 +298,7 @@ label.header-btn {
 
     color: #aebdd1;
 
-    font-size: 14px;
-
+    font-size: 13px;
     font-weight: 600;
 
     cursor: pointer;
@@ -415,103 +308,486 @@ label.header-btn {
         border-color 0.15s ease,
         color 0.15s ease,
         transform 0.15s ease;
-
 }
-
 
 .header-btn svg {
-
-    width: 12px;
-
-    height: 12px;
+    width: 14px;
+    height: 14px;
 
     fill: none;
-
     stroke: currentColor;
-
     stroke-width: 1.8;
-
     stroke-linecap: round;
-
     stroke-linejoin: round;
-
 }
-
 
 .header-btn:hover {
+    transform: translateY(-1px);
 
-    transform:
-        translateY(-1px);
+    background: #243858;
+    border-color: #486386;
 
-    background:
-        #243858;
-
-    border-color:
-        #486386;
-
-    color:
-        #f8fafc;
-
+    color: #f8fafc;
 }
 
 
 /* =====================================================
-   LOGOUT
+   GROUPS BUTTON
 ===================================================== */
 
-.logout-btn {
-
-    color:
-        #f87171;
-
-    border-color:
-        rgba(239, 68, 68, 0.25);
-
+.groups-btn {
     background:
-        rgba(127, 29, 29, 0.18);
-
+        rgba(25, 43, 72, 0.85);
 }
 
-
-.logout-btn:hover {
-
-    color:
-        #fca5a5;
-
-    background:
-        rgba(127, 29, 29, 0.32);
-
-    border-color:
-        rgba(239, 68, 68, 0.45);
-
-}
 
 /* =====================================================
-   HEADER BUTTONS
+   SETTINGS BUTTON
 ===================================================== */
 
-.header-actions .secondary {
-
+.settings-btn {
     background:
-        #1e293b;
+        rgba(25, 43, 72, 0.85);
+}
 
-    color:
-        #f8fafc;
+
+/* =====================================================
+   USER MENU
+===================================================== */
+
+.user-menu {
+    position: relative;
+}
+
+
+/* USER ICON BUTTON */
+
+.user-menu-btn {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0;
+    padding: 0;
 
     border:
         1px solid
-        #334155;
+        rgba(78, 102, 140, 0.45);
 
-}
-
-
-.header-actions .secondary:hover {
+    border-radius: 50%;
 
     background:
-        #263653;
+        rgba(25, 43, 72, 0.85);
+
+    color: #aebdd1;
+
+    cursor: pointer;
+
+    transition:
+        background 0.15s ease,
+        border-color 0.15s ease,
+        color 0.15s ease,
+        transform 0.15s ease;
+}
+
+.user-menu-btn:hover {
+    transform: translateY(-1px);
+
+    background: #243858;
+    border-color: #486386;
+
+    color: #f8fafc;
+}
+
+.user-menu-btn svg {
+    width: 18px;
+    height: 18px;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+
+/* =====================================================
+   USER DROPDOWN
+===================================================== */
+
+.user-dropdown {
+    position: absolute;
+
+    top: calc(100% + 8px);
+    right: 0;
+
+    min-width: 130px;
+
+    padding: 5px;
+
+    border:
+        1px solid
+        rgba(78, 102, 140, 0.55);
+
+    border-radius: 8px;
+
+    background:
+        #111f35;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0, 0, 0, 0.35);
+
+    z-index: 1000;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-5px);
+
+    transition:
+        opacity 0.15s ease,
+        visibility 0.15s ease,
+        transform 0.15s ease;
+}
+
+
+/* OPEN STATE */
+
+.user-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+
+/* DROPDOWN ITEM */
+
+.user-dropdown-item {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    margin: 0;
+    padding: 9px 10px;
+
+    border: 0;
+    border-radius: 6px;
+
+    background: transparent;
+
+    color: #f87171;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    text-align: left;
+}
+
+.user-dropdown-item:hover {
+    background:
+        rgba(239, 68, 68, 0.12);
+
+    color: #fca5a5;
+
+    transform: none;
+}
+
+.user-dropdown-item svg {
+    width: 15px;
+    height: 15px;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    flex-shrink: 0;
+}
+
+
+/* =====================================================
+   HEADER RESPONSIVE BEHAVIOR
+===================================================== */
+
+.hamburger-btn {
+    display: none;
+}
+
+
+/* =====================================================
+   MOBILE MENU
+===================================================== */
+
+.mobile-menu {
+    position: absolute;
+
+    top: calc(100% + 4px);
+    left: 12px;
+
+    width: 190px;
+
+    padding: 6px;
+
+    border:
+        1px solid
+        rgba(78, 102, 140, 0.55);
+
+    border-radius: 9px;
+
+    background: #111f35;
+
+    box-shadow:
+        0 12px 30px
+        rgba(0, 0, 0, 0.4);
+
+    z-index: 999;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-5px);
+
+    transition:
+        opacity 0.15s ease,
+        visibility 0.15s ease,
+        transform 0.15s ease;
+}
+
+.mobile-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.mobile-menu-item {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    margin: 0;
+    padding: 10px 11px;
+
+    border: 0;
+    border-radius: 6px;
+
+    background: transparent;
+
+    color: #aebdd1;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    text-align: left;
+
+    cursor: pointer;
+}
+
+.mobile-menu-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: #f8fafc;
+    transform: none;
+}
+
+.mobile-menu-item svg {
+    width: 16px;
+    height: 16px;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    flex-shrink: 0;
+}
+
+
+/* =====================================================
+   SMALL SCREENS
+===================================================== */
+
+@media (max-width: 850px) {
+
+    .app-header {
+        position: relative;
+
+        display: flex;
+        align-items: center;
+
+        width: 100%;
+
+        gap: 10px;
+
+        padding: 10px 12px;
+    }
+
+
+    /* Brand takes available space */
+
+    .app-brand {
+        flex: 1;
+        min-width: 0;
+    }
+
+
+    /* Hide desktop text buttons */
+
+    .header-actions .header-btn {
+        display: none;
+    }
+
+
+    /* Header actions stay on ONE ROW */
+
+    .header-actions {
+        display: flex;
+        align-items: center;
+
+        gap: 6px;
+
+        flex-shrink: 0;
+        flex-wrap: nowrap;
+    }
+
+
+    /* Show hamburger */
+
+    .hamburger-btn {
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        width: 38px;
+        height: 38px;
+
+        margin: 0;
+        padding: 0;
+
+        border:
+            1px solid
+            rgba(78, 102, 140, 0.45);
+
+        border-radius: 7px;
+
+        background:
+            rgba(25, 43, 72, 0.85);
+
+        color: #aebdd1;
+
+        cursor: pointer;
+    }
+
+
+    .hamburger-btn:hover {
+        background: #243858;
+        border-color: #486386;
+        color: #f8fafc;
+
+        transform: none;
+    }
+
+
+    .hamburger-btn svg {
+        width: 19px;
+        height: 19px;
+
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+    }
+
+
+    /* Keep account beside hamburger */
+
+    .user-menu {
+        flex-shrink: 0;
+    }
+
+
+    .user-menu-btn {
+        width: 38px;
+        height: 38px;
+    }
+
+
+    /* Smaller logo */
+
+    .app-brand-icon {
+        width: 44px;
+        height: 44px;
+    }
+
+    .app-brand-icon svg {
+        width: 29px;
+        height: 29px;
+    }
+
+
+    .app-brand-text h1 {
+        font-size: 19px;
+    }
+
+    .app-brand-text p {
+        font-size: 12px;
+    }
 
 }
 
+
+/* =====================================================
+   VERY SMALL SCREENS
+===================================================== */
+
+@media (max-width: 520px) {
+
+    .app-header {
+        padding: 8px 4px;
+    }
+
+    .app-brand {
+        gap: 8px;
+    }
+
+    .app-brand-icon {
+        width: 40px;
+        height: 40px;
+
+        border-radius: 8px;
+    }
+
+    .app-brand-icon svg {
+        width: 26px;
+        height: 26px;
+    }
+
+    .app-brand-text h1 {
+        font-size: 17px;
+    }
+
+    .app-brand-text p {
+        display: none;
+    }
+
+    .hamburger-btn,
+    .user-menu-btn {
+        width: 36px;
+        height: 36px;
+    }
+
+}
 
 /* =====================================================
    PINK ACCENT
@@ -1726,9 +2002,34 @@ label.header-btn {
 
     flex-wrap: wrap;
 
+    justify-content: flex-end;
+
     gap: 6px;
 
-    margin-top: 9px;
+    margin-top: 12px;
+    padding-top: 10px;
+
+    border-top: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.bill-actions button {
+    min-height: 32px;
+    margin: 0;
+    padding: 5px 9px;
+
+    border: 1px solid rgba(148, 163, 184, 0.22);
+    border-radius: 6px;
+    background: rgba(148, 163, 184, 0.08);
+    box-shadow: none;
+
+    color: #bdc9d8;
+    font-size: 10px;
+}
+
+.bill-actions button:hover {
+    border-color: rgba(148, 163, 184, 0.4);
+    background: rgba(148, 163, 184, 0.15);
+    color: #f1f5f9;
 }
 
 
@@ -1738,9 +2039,14 @@ label.header-btn {
 
 .payment-box {
 
-    margin-top: 9px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
 
-    padding: 10px;
+    margin-top: 12px;
+
+    padding: 12px;
 
     border: 1px solid var(--input-border);
 
@@ -1749,14 +2055,27 @@ label.header-btn {
     border-radius: 8px;
 }
 
+.payment-box > strong {
+    flex: 1 0 100%;
+    color: #e2e8f0;
+    font-size: 12px;
+}
+
+.payment-box br {
+    display: none;
+}
+
 
 .payment-box input {
 
-    width: 150px;
+    flex: 1 1 140px;
+    width: 140px;
+    min-width: 0;
 
     height: 34px;
 
-    padding: 0 9px;
+    margin: 0;
+    padding: 0 10px;
 
     background: #111827;
 
@@ -2277,6 +2596,26 @@ label.header-btn {
     outline: none;
 
 }
+.payment-box button {
+    min-height: 34px;
+    margin: 0;
+    padding: 6px 11px;
+
+    border-radius: 6px;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.payment-box .success {
+    border: 1px solid rgba(45, 212, 191, 0.3);
+    background: rgba(20, 184, 166, 0.12);
+    color: #9de6da;
+}
+
+.payment-box .success:hover {
+    background: rgba(20, 184, 166, 0.2);
+}
+
 
 
 .expense-history-filters select:focus {
@@ -2735,11 +3074,17 @@ label.header-btn {
 }
 
 .settings-section {
-    padding: 20px 0;
+    padding: 18px 0;
 
     border-top:
         1px solid
         var(--border);
+}
+
+#settingsModal .settings-section h3 {
+    margin: 0 0 14px;
+    color: #e8f0f8;
+    font-size: 14px;
 }
 
 .settings-title {
@@ -2749,7 +3094,39 @@ label.header-btn {
 
     align-items: center;
 
-    margin-bottom: 12px;
+    margin-bottom: 14px;
+}
+
+#settingsModal .settings-title h3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
+
+#settingsModal .settings-title > button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 38px;
+    height: 36px;
+    margin: 0;
+    padding: 0;
+
+    border: 1px solid rgba(56, 189, 248, 0.32);
+    border-radius: 8px;
+    background: rgba(14, 165, 233, 0.14);
+    box-shadow: none;
+}
+
+#settingsModal .settings-title > button:hover {
+    background: rgba(14, 165, 233, 0.24);
+}
+
+#settingsModal .settings-title > button svg {
+    width: 18px;
+    height: 18px;
 }
 
 .settings-member-row {
@@ -2762,20 +3139,102 @@ label.header-btn {
 
     align-items: center;
 
-    margin-bottom: 10px;
+    gap: 8px;
+    margin-bottom: 8px;
+    padding: 8px;
+
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    border-radius: 8px;
+    background: rgba(15, 23, 42, 0.56);
+}
+
+#settingsModal .settings-member-row label {
+    color: var(--muted);
+    font-size: 11px;
 }
 
 .settings-member-row input {
-    padding: 10px;
+    min-width: 0;
+    height: 38px;
+    margin: 0;
+    padding: 0 10px;
 
-       border: 1px solid var(--input-border);
+    border: 1px solid var(--input-border);
 
     background: var(--input-bg);
-
 
     color: white;
 
     border-radius: 8px;
+}
+
+#settingsModal .settings-member-row .danger,
+#settingsModal .settings-card-row .danger {
+    min-height: 34px;
+    margin: 0;
+    padding: 5px 10px;
+
+    border: 1px solid rgba(248, 113, 113, 0.32);
+    border-radius: 7px;
+    background: rgba(239, 68, 68, 0.08);
+    box-shadow: none;
+
+    color: #ffaaaa;
+    font-size: 11px;
+}
+
+#settingsModal .settings-member-row .danger:hover,
+#settingsModal .settings-card-row .danger:hover {
+    border-color: rgba(248, 113, 113, 0.55);
+    background: rgba(239, 68, 68, 0.16);
+    color: #ffd0d0;
+}
+
+#settingsModal .settings-section > button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    min-height: 38px;
+    margin: 12px 0 0;
+    padding: 8px 14px;
+    border-radius: 8px;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+#settingsModal .settings-section > .primary {
+    background: linear-gradient(135deg, #25a9d2, #1678bf);
+    box-shadow: 0 4px 12px rgba(22, 120, 191, 0.2);
+}
+
+#settingsModal .settings-section > .primary:hover {
+    background: linear-gradient(135deg, #39badf, #2089d0);
+    box-shadow: 0 5px 14px rgba(22, 120, 191, 0.28);
+}
+
+#settingsModal .settings-section > .success {
+    background: #138f7a;
+    color: #f0fdfa;
+}
+
+#settingsModal .settings-section > .success:hover {
+    background: #17a38b;
+}
+
+#settingsModal .settings-section > .danger {
+    border: 1px solid rgba(248, 113, 113, 0.36);
+    background: rgba(239, 68, 68, 0.1);
+    box-shadow: none;
+    color: #ffaaaa;
+}
+
+#settingsModal .settings-section > .danger:hover {
+    border-color: rgba(248, 113, 113, 0.58);
+    background: rgba(239, 68, 68, 0.18);
+    color: #ffd0d0;
 }
 
 .settings-card-row {
@@ -2787,9 +3246,9 @@ label.header-btn {
 
     align-items: center;
 
-    padding: 14px;
+    padding: 12px;
 
-    margin-top: 10px;
+    margin-top: 8px;
 
     background: var(--panel-2);
 
@@ -2800,10 +3259,30 @@ label.header-btn {
 
 .settings-card-info strong {
     display: block;
+    margin-bottom: 3px;
+    color: #f1f5f9;
+}
+
+.settings-card-info {
+    min-width: 0;
 }
 
 .settings-cards {
-    margin-top: 20px;
+    margin-top: 14px;
+}
+
+#settingsModal .settings-card-row > div:last-child {
+    flex-shrink: 0;
+}
+
+#settingsModal .settings-section > .danger:focus-visible,
+#settingsModal .settings-section > .success:focus-visible,
+#settingsModal .settings-section > .primary:focus-visible,
+#settingsModal .settings-member-row button:focus-visible,
+#settingsModal .settings-card-row button:focus-visible,
+#settingsModal .settings-title button:focus-visible {
+    outline: 2px solid #8bdcf5;
+    outline-offset: 2px;
 }
 
 
@@ -2883,13 +3362,17 @@ label.header-btn {
 
     .settings-member-row {
         grid-template-columns:
-            1fr;
+            minmax(0, 1fr) auto;
+    }
+
+    #settingsModal .settings-member-row label {
+        grid-column: 1 / -1;
     }
 
     .settings-card-row {
-        flex-direction: column;
-
-        align-items: flex-start;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
     }
 
 }
@@ -3983,10 +4466,12 @@ body {
     align-items: center;
     justify-content: center;
 
-    border-radius: 5px;
+    border-radius: 8px;
 
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
 
     line-height: 1;
 
@@ -4003,14 +4488,15 @@ body {
 .dashboard-page .expense-group-actions .open-group-btn {
     background:
         linear-gradient(
-            180deg,
-            #1684f7,
-            #0872df
+            135deg,
+            #35b6dd,
+            #1684d8
         );
 
     color: #ffffff;
 
-    border: none;
+    border: 1px solid rgba(158, 231, 255, 0.35);
+    box-shadow: 0 3px 10px rgba(22, 132, 216, 0.24);
 }
 
 
@@ -4019,13 +4505,11 @@ body {
 ========================================================= */
 
 .dashboard-page .expense-group-actions .delete-group-btn {
-    background: rgba(248, 48, 48, 0.726);
+    background: rgba(239, 68, 68, 0.08);
 
-    border: 1px solid rgba(245, 158, 11, 0.35) !important;
+    border: 1px solid rgba(248, 113, 113, 0.3) !important;
 
-    color: #fdfdfd;
-
-    gap: 5px;
+    color: #ffb4b4;
 }
 
 
@@ -4036,12 +4520,13 @@ body {
 .dashboard-page .expense-group-actions .open-group-btn:hover {
     background:
         linear-gradient(
-            180deg,
-            #2d94ff,
-            #0872df
+            135deg,
+            #52c9e9,
+            #218fe1
         );
 
     transform: translateY(-1px);
+    box-shadow: 0 5px 14px rgba(22, 132, 216, 0.34);
 }
 
 
@@ -4050,11 +4535,11 @@ body {
 ========================================================= */
 
 .dashboard-page .expense-group-actions .delete-group-btn:hover {
-    background: rgba(247, 37, 37, 0.25);
+    background: rgba(239, 68, 68, 0.16);
 
-    border-color: rgba(243, 154, 0, 0.55) !important;
+    border-color: rgba(248, 113, 113, 0.55) !important;
 
-    color: #fffdfd;
+    color: #ffd0d0;
 
     transform: translateY(-1px);
 }
@@ -4066,6 +4551,11 @@ body {
 
 .dashboard-page .expense-group-actions button:active {
     transform: scale(0.96);
+}
+
+.dashboard-page .expense-group-actions button:focus-visible {
+    outline: 2px solid #a9e8ff;
+    outline-offset: 3px;
 }
 
 
